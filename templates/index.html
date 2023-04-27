@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"></link>
+    <link href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' rel='stylesheet'></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Audio API in JavaScript</title>
+    <style>
+       @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
+       @import url('https://fonts.googleapis.com/css?family=Lato');
+       @import url('index.css');
+    </style>
+  </head>
+  <body>
+    <h1>Web ChatBot</h1>
+    <section class="nav">
+      <h3 class="span loader">
+        <span class="m">The</span>
+        <span class="m"></span>
+        <span class="m">Demo</span>
+        <span class="m"></span>
+        <span class="m">of</span>
+        <span class="m"></span>
+        <span class="m">voice assistance</span>
+      </h3>
+    </section>
+    <main class="main"></main>
+    <div>
+      <!-- <button type="button" id="buttonStart">Start</button>
+      <button type="button" id="buttonStop" disabled>Stop</button> -->
+    </div>
+        <div class="input-group mb-2" >
+          <label class="btn btn-info"  id="start">
+          <i class="fas fa-microphone"> Start record</i>
+          </label>
+          </div>
+          <div class="input-group mb-2" >
+        <!-- </button> -->
+           <label class="btn btn-info"  id="stop">
+          <i class="fa fa-hand-paper-o"> Pause</i>
+          </label>
+        </div>
+    <div>
+      <audio controls id="audio" style="display: none;"></audio>
+    </div>
+    <!-- 播放回傳音檔，並即時播放src="http://127.0.0.1:5000/stream_message" -->
+    <audio id="audio-player"  oncanplaythrough="this.play()">
+      <source id="audio-source" type="audio/wav">
+    </audio>
+      <div class="input-container">
+        
+        <div class="col-8">
+          <!-- mb-3 在元素底部設置高度為3個單位的margin -->
+        <div class="input-group mb-3">
+          <textarea class="form-control" id="input-text" rows='5' col='5' placeholder="Display" aria-label="Display"></textarea>
+          <img id="img_display" src="" alt="">
+          <input type="text" id="user-input" name='user-input' placeholder="Type your message...">
+          <label class="btn btn-info" id="send-btn" name="send">
+          <i class="fas fa-paper-plane"> Submit</i>
+        </label>
+      </div>
+      <!-- 彈出語言選擇框 -->
+        <div class="container">
+          <button id="toggle"  class="btn btn-toggle" style="color: rgb(239, 246, 246);">
+            Toggle text box
+          </button>
+            <div id="text-box" class="text-box">
+            <div id="close" class="close">close</div>
+            <h3>Choose Voice</h3>
+            <select id="voices"></select>
+            <button class="btn-selected" id="read">Selected</button>
+          </div>
+        </div>
+    </div>
+
+    <!-- <script src="/encode-audio.js"></script> -->
+    <script src="/chat.js"></script>
+    <script src="audio-recorder.js"></script>
+    <!-- <script src="/main.js"></script> -->
+    <!-- <script src="./script.js"></script> -->
+  </body>
+</html>

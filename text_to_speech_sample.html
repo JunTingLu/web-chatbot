@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato');
+
+            * {
+            box-sizing: border-box;
+            }
+
+            body {
+            background: #ffefea;
+            font-family: 'Lato', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            }
+
+            h1 {
+            text-align: center;
+            }
+
+            .container {
+            margin: auto;
+            padding: 20px;
+            }
+
+            .btn {
+            cursor: pointer;
+            background-color: darksalmon;
+            border: 0;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            padding: 8px;
+            }
+
+            .btn:active {
+            transform: scale(0.98);
+            }
+
+            .btn:focus,
+            select:focus {
+            outline: 0;
+            }
+
+            .btn-toggle {
+            display: block;
+            margin: auto;
+            margin-bottom: 20px;
+            }
+
+            .text-box {
+            width: 70%;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -800px);
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            transition: all 1s ease-in-out;
+            }
+
+            .text-box.show {
+            transform: translate(-50%, 0);
+            }
+
+            .text-box select {
+            background-color: darksalmon;
+            border: 0;
+            color: #fff;
+            font-size: 12px;
+            height: 30px;
+            width: 100%;
+            }
+
+            .text-box textarea {
+            border: 1px #dadada solid;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 8px;
+            margin: 15px 0;
+            width: 100%;
+            height: 150px;
+            }
+
+            .text-box .btn {
+            width: 100%;
+            }
+
+            .text-box .close {
+            float: right;
+            text-align: right;
+            cursor: pointer;
+            }
+
+            main {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            }
+
+            .box {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: box-shadow 0.2s ease-out;
+            }
+
+            .box.active {
+            box-shadow: 0 0 10px 5px darksalmon;
+            }
+
+            .box img {
+            width: 100%;
+            object-fit: cover;
+            height: 200px;
+            }
+
+            .box .info {
+            background-color: darksalmon;
+            color: #fff;
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            height: 100%;
+            }
+
+            @media (max-width: 1100px) {
+            main {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            }
+
+            @media (max-width: 760px) {
+            main {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            }
+
+            @media (max-width: 500px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            }
+    </style>
+    <title>Speech Text Reader</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Speech Text Reader</h1>
+      <button id="toggle" class="btn btn-toggle">
+        Toggle Text Box
+      </button>
+      <div id="text-box" class="text-box">
+        <div id="close" class="close">X</div>
+        <h3>Choose Voice</h3>
+        <select id="voices"></select>
+        <textarea id="text" placeholder="Enter text to read..."></textarea>
+        <button class="btn" id="read">Read Text</button>
+      </div>
+      <main></main>
+    </div>
+
+    <script type="text/javascript">
+            const main = document.querySelector('main');
+            const voicesSelect = document.getElementById('voices');
+            const textarea = document.getElementById('text');
+            const readBtn = document.getElementById('read');
+            const toggleBtn = document.getElementById('toggle');
+            const closeBtn = document.getElementById('close');
+
+            const data = [
+            {
+                image: './img/drink.jpg',
+                text: "I'm Thirsty"
+            },
+            {
+                image: './img/food.jpg',
+                text: "I'm Hungry"
+            },
+            {
+                image: './img/tired.jpg',
+                text: "I'm Tired"
+            },
+            {
+                image: './img/hurt.jpg',
+                text: "I'm Hurt"
+            },
+            {
+                image: './img/happy.jpg',
+                text: "I'm Happy"
+            },
+            {
+                image: './img/angry.jpg',
+                text: "I'm Angry"
+            },
+            {
+                image: './img/sad.jpg',
+                text: "I'm Sad"
+            },
+            {
+                image: './img/scared.jpg',
+                text: "I'm Scared"
+            },
+            {
+                image: './img/outside.jpg',
+                text: 'I Want To Go Outside'
+            },
+            {
+                image: './img/home.jpg',
+                text: 'I Want To Go Home'
+            },
+            {
+                image: './img/school.jpg',
+                text: 'I Want To Go To School'
+            },
+            {
+                image: './img/grandma.jpg',
+                text: 'I Want To Go To Grandmas'
+            }
+            ];
+
+            data.forEach(createBox);
+
+            // Create speech boxes
+            function createBox(item) {
+            const box = document.createElement('div');
+
+            const { image, text } = item;
+
+            box.classList.add('box');
+
+            box.innerHTML = `
+                <img src="${image}" alt="${text}" />
+                <p class="info">${text}</p>
+            `;
+
+            box.addEventListener('click', () => {
+                setTextMessage(text);
+                speakText();
+
+                // Add active effect
+                box.classList.add('active');
+                setTimeout(() => box.classList.remove('active'), 800);
+            });
+
+            main.appendChild(box);
+            }
+
+            // Init speech synth
+            const message = new SpeechSynthesisUtterance();
+
+            // Store voices
+            let voices = [];
+
+            function getVoices() {
+            voices = speechSynthesis.getVoices();
+
+            voices.forEach(voice => {
+                const option = document.createElement('option');
+
+                option.value = voice.name;
+                option.innerText = `${voice.name} ${voice.lang}`;
+
+                voicesSelect.appendChild(option);
+            });
+            }
+
+            // Set text
+            function setTextMessage(text) {
+            message.text = text;
+            }
+
+            // Speak text
+            function speakText() {
+            speechSynthesis.speak(message);
+            }
+
+            // Set voice
+            function setVoice(e) {
+            message.voice = voices.find(voice => voice.name === e.target.value);
+            }
+
+            // Voices changed
+            speechSynthesis.addEventListener('voiceschanged', getVoices);
+
+            // Toggle text box
+            toggleBtn.addEventListener('click', () =>
+            document.getElementById('text-box').classList.toggle('show')
+            );
+
+            // Close button
+            closeBtn.addEventListener('click', () =>
+            document.getElementById('text-box').classList.remove('show')
+            );
+
+            // Change voice
+            voicesSelect.addEventListener('change', setVoice);
+
+            // Read text button
+            readBtn.addEventListener('click', () => {
+            setTextMessage(textarea.value);
+            speakText();
+            });
+
+            getVoices();
+    </script>
+  </body>
+</html>

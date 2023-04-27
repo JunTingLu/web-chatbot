@@ -1,0 +1,101 @@
+.text-box {
+    width: 80%;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -800px);
+    background-color: #646060;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    transition: all 1s ease-in-out;
+  }
+
+  .text-box.show {
+    transform: translate(-50%, 40%);
+  }
+
+  .text-box select {
+      background-color: rgb(167, 98, 232);
+      border: 0;
+      color: #fff;
+      font-size: 12px;
+      height: 30px;
+      width: 100%;
+    }
+
+    .text-box .btn {
+        width: 100%;
+      }
+
+      .text-box .close {
+        float: right;
+        text-align: right;
+        cursor: pointer;
+        color: #fff;
+        font-size: 10px;
+      }
+
+      .btn-selected {
+        cursor: pointer;
+        text-align:center;
+        background-color: rgb(159, 41, 243);
+        border: 0;
+        border-radius: 2px;
+        color: #fff;
+        font-size: 14px;
+        padding: 5px;
+      }
+      .voices{
+        margin-right: 10px;
+      }
+      body {
+        font-family: "ROBOTO", sans-serif;
+        background-color: #322f2f;
+      }
+      h1{
+        font-family: "ROBOTO", sans-serif;
+        color: #fff;
+        text-align: center;
+        font-size: 50px;
+      }
+
+      h3.span {
+          /* font-size: 2vw; */
+          letter-spacing: 0.7em;
+          font-family: "ROBOTO", sans-serif;
+          font-weight: 300;
+          color: #fefefa;
+          z-index: 4;
+        }
+
+        span:hover {
+          color: #d43b3b;
+          font-weight: 500;
+          font-size: 2.2vw;
+        }
+      .toggle {
+        color:#e6e7ec;
+      }
+      .btn-selected{
+        margin-top: 10px;
+      }
+
+      /* @-webkit-keyframes loading {
+        to {
+        text-shadow: 20px 0 70px #ff0266;
+        color: #ff0266;
+        }
+        }
+
+        .loader span:nth-child(2) {
+        -webkit-animation-delay: 0.1s;
+        }
+
+        .loader span:nth-child(3) {
+        -webkit-animation-delay: 0.2s;
+        }
+
+        .loader span:nth-child(4) {
+        -webkit-animation-delay: 0.3s;
+        } */
