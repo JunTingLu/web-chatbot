@@ -20,7 +20,7 @@
     border: 0;
     color: #fff;
     font-size: 12px;
-    height: 30px;
+    height: 20px;
     width: 50%;
   }
 
@@ -81,13 +81,7 @@
     .btn-selected{
       margin-top: 10px;
     }
-    
 
-
-
-  /*--------------------
-Mixins
---------------------*/
 /*--------------------
 Body
 --------------------*/
@@ -103,7 +97,7 @@ height: 100%;
 }
 
 body {
-background: linear-gradient(135deg, #044f48, #2a7561);
+background: linear-gradient(135deg, #89f8ed, #18f1b7);
 background-size: cover;
 font-family: "Open Sans", sans-serif;
 font-size: 12px;
@@ -252,7 +246,7 @@ color: #fff;
 text-align: right;
 background: linear-gradient(120deg, #248A52, #257287);
 border-radius: 10px 10px 0 10px;
-right:10px;
+right:20px;
 }
 .messages .message.message-personal::before {
 left: auto;
@@ -265,11 +259,10 @@ bottom: -4px;
 /* .messages .message:last-child {
 margin-bottom: 30px;
 } */
-/* .messages .message.new {
-transform: scale(0);
-transform-origin: 0 0;
-animation: bounce 500ms linear both;
-} */
+.messages .message.new {
+margin-left:50px;
+}
+
 /* .messages .message.loading::before {
 position: absolute;
 top: 50%;
@@ -341,10 +334,10 @@ position: relative;
 .message-box .message-input {
 background: none;
 border: none;
-outline: none !important;
+outline: none;
 resize: none;
 color: rgba(255, 255, 255, 0.7);
-font-size: 11px;
+font-size: 15px;
 height: 25px;
 margin: 0;
 padding-right: 20px;
@@ -366,7 +359,7 @@ text-transform: uppercase;
 line-height: 1;
 padding: 6px 10px;
 border-radius: 10px;
-outline: none !important;
+outline: none;
 transition: background 0.2s ease;
 }
 
@@ -383,7 +376,7 @@ text-transform: uppercase;
 line-height: 1;
 padding: 6px 10px;
 border-radius: 10px;
-outline: none !important;
+outline: none ;
 transition: background 0.2s ease;
 }
 
@@ -405,7 +398,7 @@ padding: 0 10px;
 }
 
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-background-color: rgba(0, 0, 0, 0.5) !important;
+background-color: rgba(0, 0, 0, 0.5);
 }
 
 /*--------------------

@@ -1,12 +1,13 @@
 
+// Init speech synth
+const message = new SpeechSynthesisUtterance();
 const voicesSelect = document.getElementById('voices');
 const readBtn = document.getElementById('input-text');
 const toggleBtn = document.getElementById('toggle-btn'); 
+const select=document.getElementById('selected');
 const closeBtn = document.getElementById('close');
-
-
-// Init speech synth
-const message = new SpeechSynthesisUtterance();
+const textbox= document.getElementById('text-box');
+const textwindow=document.getElementById('staticBackdrop')
 
 // Store voices
 let voices = [];
@@ -30,42 +31,55 @@ function setTextMessage(text) {
   return message
 }
 
-// Speak text
-function speakText() {
-  speechSynthesis.speak(message);
-}
 
 // Set voice
 function setVoice(e) {
   message.voice = voices.find(voice => voice.name === e.target.value);
 }
 
-// Voices changed
-speechSynthesis.addEventListener('voiceschanged', getVoices);
-
-// Toggle text box
-toggleBtn.addEventListener('click', (event)=>{
-  document.getElementById('text-box').classList.toggle('show')
-});
-
-// Close button
-closeBtn.addEventListener('click', () =>
-  document.getElementById('text-box').classList.remove('show')
-);
-
 // Change voice
 voicesSelect.addEventListener('change', setVoice);
 
-// Read text button
-readBtn.addEventListener('click', () => {
-// import chat.js, and get the response from flask
-  // setTextMessage(message);
-  speakText();
+// Voices changed
+speechSynthesis.addEventListener('voiceschanged', getVoices);
+
+// Speak text
+function speakText() {
+
+  speechSynthesis.speak(message);
+}
+
+// Toggle text box
+toggleBtn.addEventListener('click', (event)=>{
+    textbox.classList.toggle('show')
 });
 
-getVoices();
+// Close button
+closeBtn.addEventListener('click', ()=>{
+  // 針對class屬性
+    textbox.classList.remove('show')
+});
 
 
+// Read text button
+// readBtn.addEventListener('click', () => {
+//   // import chat.js, and get the response from flask
+//     // setTextMessage(message);
+//     console.log(67)
+//     speakText();
+//   });
+select.addEventListener('click',(event)=>{
+  // decide the choosed lang
+    getVoices();
+    console.log(71)
+    textwindow.classList.remove('show');
+    console.log(73)
+});
+
+// speakText();
+
+
+/* 匯出函式 */
 export {
   // 函式內容
   getVoices,

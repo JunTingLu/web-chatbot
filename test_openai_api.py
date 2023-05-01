@@ -131,12 +131,12 @@ def blob_to_wav(blob,API_key):
     # 將blob轉為wav檔案
     wav_data = byites_content[12:]
     print(137,wav_data)
-    # # 將音頻數據寫入wav檔案
-    return 'hello'  
-    with wave.open('output.wav', 'wb') as wav_file:
-        print('a')
-        wav_file.setparams((1, 2, 44100, 0, 'NONE', 'not compressed'))
-        wav_file.writeframes(wav_data)
+    # return 'hello'  
+    # # 將音頻二進位數據寫入wav檔案
+    # with wave.open('output.wav', 'wb') as wav_file:
+    #     print('a')
+    #     wav_file.setparams((1, 2, 44100, 0, 'NONE', 'not compressed'))
+    #     wav_file.writeframes(wav_data)
     # transcript from whisper api (S2T)
     with open("output.wav", "rb") as audio_file:
         transcript=Whisper_API(audio_file,API_key)

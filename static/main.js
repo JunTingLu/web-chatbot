@@ -1,5 +1,4 @@
 import * as script_module from './script.js';
-console.log(2,script_module)
 async function main () {
     try {
       const buttonStart = document.querySelector('#start')
@@ -13,7 +12,6 @@ async function main () {
         video: false,
         audio: true,
       })
-      // 
       const [track] = stream.getAudioTracks()
       // getSetting獲取當前音軌的訊息(採樣率,聲道數..)
       const settings = track.getSettings() // <2>
@@ -34,8 +32,6 @@ async function main () {
       const audioRecorder = new AudioWorkletNode(audioContext, 'audio-recorder') // <5>
       const buffers = []
       
-
-      // buttonStart.addEventListener('click', (event) => {
       
       //audio-recorder 會透過postMessage 將當下錄製數據傳遞回來，並存於buffer中
       audioRecorder.port.addEventListener('message', event => { // <6>
@@ -82,7 +78,6 @@ async function main () {
         // build the formdata to transport wav to flask
         const Data=new FormData()
         Data.append('stream-file',blob)
-        console.log('fetch')
         // fetch post
         fetch('http://127.0.0.1:5000/stream_message',{
           method:'POST',
@@ -106,13 +101,12 @@ async function main () {
             // // 得到後端回應後自動調用 speakText 功能
               const msg=data.stream_result;
               const textmsg=script_module.setTextMessage(msg);
-              const speakmsg=script_module.speakText(textmsg)
+              const speakmsg=script_module.speakText(textmsg);
               if (data.stream_result===''){
                 return 'false'
               }
               console.log(102,textmsg)
             // get_data=data.result
-              console.log(111,speakmsg)
 
             // blob_url=URL.createObjectURL(blob);
             // output_audio.src=blob_url;
