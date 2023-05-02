@@ -20,6 +20,7 @@ from flask_cors import CORS
 from scipy.io import wavfile
 import binascii
 import time
+from pydub import AudioSegment
 
 #%%
 app=Flask(__name__)
@@ -32,27 +33,6 @@ API_key=config.get('OpenAI','openai_API')
 openai.api_key = API_key
 
 #%%
-# test google
-# def google_T2S(input_text ):
-#     # 設定文字輸入和音訊設定
-#     request=SynthesizeSpeechRequest(
-#     # input = tts.SynthesisInput(text=input_text),
-#     voice=tts.VoiceSelectionParams(
-#         language_code="zh-TW",
-#         name="zh-TW-Wavenet-A",
-#         ssml_gender=tts.SsmlVoiceGender.NEUTRAL,
-#     ),
-#     audio_config = tts.AudioConfig(
-#     audio_encoding=tts.AudioEncoding.LINEAR16,
-#     speaking_rate=1.0,
-#     ))
-#     # 合成語音
-#     # voice_response=client.synthesize_speech(input=input_text, voice=voice, audio_config=audio_config)
-#     voice_response = client.synthesize_speech(request=request)
-#     # 轉存為二進位物件
-#     output_voice=io.BytesIO(voice_response)
-#     return send_file(io.BytesIO(output_voice), mimetype='audio/wav', as_attachment=True, attachment_filename='synthesized.wav')
-
 
 # 錄製音檔
 # chunk = 1024                     # 記錄聲音的樣本區塊大小
@@ -103,8 +83,15 @@ def chat_completion(messages):
 
 # Whisper API
 def Whisper_API(audio_file,API_key):
-    openai.api_key=API_key
-    transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    vad_threshold=0.5
+    # openai.api_key=API_key
+    headers={
+        "Authorization": "Bearer {}".format(API_key),
+    }
+    params={
+        "vad_threshold": vad_threshold  # 調整語音活動檢測閾值
+    }
+    transcript = openai.Audio.transcribe(model="whisper-1",header=headers,file=audio_file,params=params)
     return transcript['text']
 
 
@@ -125,29 +112,43 @@ def img_generator(input_text,API_key):
 # 創建wav檔案 
 def blob_to_wav(blob,API_key):
     byites_io=io.BytesIO(blob)
-    print(122,byites_io)
     byites_content=byites_io.getvalue()
     # bytes 物件沒有 name 屬性，而 openai.Audio.transcribe 方法需要一個有 name 屬性的物件
     # 將blob轉為wav檔案
-    wav_data = byites_content[12:]
-    print(137,wav_data)
+    # wav_data = byites_content[12:]
+    riff='data'
+    riff=riff.encode('utf-8')
+    riff_start = byites_content.find(riff)
+    riff_data = byites_content[riff_start:]
+    print(138,riff_data )
     # return 'hello'  
-    # # 將音頻二進位數據寫入wav檔案
-    # with wave.open('output.wav', 'wb') as wav_file:
-    #     print('a')
+    # 將音頻二進位數據寫入wav檔案
+    # with wave.open("output.wav", 'wb') as wav_file:
     #     wav_file.setparams((1, 2, 44100, 0, 'NONE', 'not compressed'))
-    #     wav_file.writeframes(wav_data)
+    #     wav_file.writeframes(riff_data)
+    
+    # 將二進位格式轉換成 AudioSegment 物件
+    audio_segment=write_wav(riff_data)
+    print(132,audio_segment)
+    # 將 AudioSegment 物件轉換成 wav 格式的音訊檔案
+    time.sleep(60)
+    audio_segment.export("output.wav", format="wav")
     # transcript from whisper api (S2T)
     with open("output.wav", "rb") as audio_file:
         transcript=Whisper_API(audio_file,API_key)
-    return transcript
+        print(143,transcript)
+    return 'success'
 
 
-# transcribe the stream blob to wav
-# def transcribe(wav_input,API_key):
-#     transcript=Whisper_API(wav_input,API_key)
-#     print(140,transcript)
-#     return  transcript
+# write in wav file
+def write_wav(riff_data):
+    audio_segment = AudioSegment(
+    data= riff_data ,
+    sample_width=2,
+    frame_rate=44100,
+    channels=1
+    )
+    return audio_segment
 
 #%%
 """ 語音聊天模式 """
@@ -161,7 +162,7 @@ def stream_GPT():
         # 取得前端blob
         audio_blob=request.get_data()
         stream_result=blob_to_wav(audio_blob,API_key)
-        print(143,stream_result)
+
         # get the text response 
         # stream_result="how's the weather today"
         # GPT3.5 API 

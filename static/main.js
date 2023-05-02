@@ -77,6 +77,7 @@ async function main () {
         
         // build the formdata to transport wav to flask
         const Data=new FormData()
+        const container=document.querySelector('#mCSB_container')
         Data.append('stream-file',blob)
         // fetch post
         fetch('http://127.0.0.1:5000/stream_message',{
@@ -87,16 +88,14 @@ async function main () {
             }
           })
           .then(response=>response.json())  // 接收後端回傳json字串
-          .then(({data})=>{
-            console.log(95,data)
-          
+          .then(({data})=>{          
             // const output_audio = document.querySelector('#audio-player');
             // const script=document.createElement('script');
             // script.setAttribute("type","text/javascript");
             // script.setAttribute("src", "../static/script.js");
             // script.src='../static/script.js';
             // document.body.appendChild(script);
-
+              console.log(97,data)
             // // 將字串餵入script.js的text中
             // // 得到後端回應後自動調用 speakText 功能
               const msg=data.stream_result;
@@ -106,12 +105,37 @@ async function main () {
                 return 'false'
               }
               console.log(102,textmsg)
-            // get_data=data.result
 
-            // blob_url=URL.createObjectURL(blob);
-            // output_audio.src=blob_url;
-            // inputtext.appendChild(speak)
-            // output_audio.play();
+            // function streamMessage() {
+            // // get_data=data.result
+            // const new_voice_msg=document.createElement('div')
+            // new_voice_msg.add('new_stream_message','new')
+            // // 插入音量icon作為回應 (顯示回應文字)
+            // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+'<span class="glyphicon glyphicon-volume-up"></span>'+msg;
+            // 欲生成圖片，則顯示在回應框內
+            // if (data.type==='image'){
+            // new_voice_msg.innerHTML='<figure class="avatar"><img src=data.image/></figure>';
+            //   return 
+            // }
+
+            // // text area中顯示
+            // container.appendChild(new_voice_msg);
+            // // 插入回應的音訊資訊
+
+            // // 插入GPT icon 作為回應頭像
+            // setTimeout(function() {
+            //   new_voice_msg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + speakmsg;
+            //   container.appendChild(new_voice_msg).classList.add('new');
+            //   }, 500);
+            // }
+
+            // // output_audio.src=blob_url;
+            // // inputtext.appendChild(speak)
+            // // output_audio.play();
+            
+            // setTimeout(function() {
+            //   streamMessage();
+            // }, 500); //500 ms後顯示
         })
       })
      }catch (error){

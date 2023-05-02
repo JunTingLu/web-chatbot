@@ -2,19 +2,6 @@ const content=document.querySelector('#messages-content')
 const msginput=document.querySelector('#message-input')
 let d, h, m;
 
-// 網頁載入完成後觸發
-// document.addEventListener('DOMContentLoaded',function() {
-//   // content.mCustomScrollbar();
-//   // const scrollbar = new SimpleBar(content);
-//   function trigger_fake(){
-//   // fakeMessage 函式延遲 100 毫秒後再執行
-//     setTimeout(function() {
-//     fakeMessage();
-//   }, 100);
-// }
-//   msginput.addEventListener('click',trigger_fake());
-// });
-
 
 // function updateScrollbar() {
 //   scrollbar.getScrollElement().scrollTop = scrollbar.getScrollElement().scrollHeight;
@@ -78,7 +65,6 @@ function insertMessage() {
           container.appendChild(newMsg).classList.add('new');
           // setDate();
           // updateScrollbar();
-          i++;
           }, 500);
         }
         // msginput.value+='\n'+outputText+'\n'; 

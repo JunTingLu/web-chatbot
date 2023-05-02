@@ -11,7 +11,9 @@ send.addEventListener('click',function() {
     // 將文字輸入至text area 並得到GPT回應
     // trim用來移除部必要的空白
     const message=usertext.value.trim();
-
+    // clear after sending message
+    inputtext.value+=message;
+    usertext.value='';
     // 判斷是否有輸入
     if (message==='')return;
     fetch('http://127.0.0.1:5000/text_message',{
@@ -29,13 +31,10 @@ send.addEventListener('click',function() {
             img_display.src=data.image;
             return 
         }
-
         // 在text area回傳文字
         const outputText=data.result;
-        inputtext.value+=message;
         inputtext.value+='\n'+outputText+'\n'; 
-         // clear after sending message
-        usertext.value='';
+    
     })
     .catch(error=>console.error(error))
     

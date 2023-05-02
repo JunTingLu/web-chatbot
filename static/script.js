@@ -1,4 +1,3 @@
-
 // Init speech synth
 const message = new SpeechSynthesisUtterance();
 const voicesSelect = document.getElementById('voices');
@@ -11,16 +10,12 @@ const textwindow=document.getElementById('staticBackdrop')
 
 // Store voices
 let voices = [];
-
 function getVoices() {
   voices = speechSynthesis.getVoices();
-
   voices.forEach(voice => {
     const option = document.createElement('option');
-
     option.value = voice.name;
     option.innerText = `${voice.name} ${voice.lang}`;
-
     voicesSelect.appendChild(option);
   });
 }
@@ -45,7 +40,6 @@ speechSynthesis.addEventListener('voiceschanged', getVoices);
 
 // Speak text
 function speakText() {
-
   speechSynthesis.speak(message);
 }
 
@@ -68,12 +62,11 @@ closeBtn.addEventListener('click', ()=>{
 //     console.log(67)
 //     speakText();
 //   });
+
 select.addEventListener('click',(event)=>{
   // decide the choosed lang
     getVoices();
-    console.log(71)
     textwindow.classList.remove('show');
-    console.log(73)
 });
 
 // speakText();
