@@ -71,13 +71,14 @@ async function main () {
         // encodeAudio將數據進行二進位編碼
         const blob = encodeAudio(buffers, settings) // <11>
         console.log(77,blob) // blob is wav file
+        const inputtext=document.querySelector('#input-text')
+
         // 轉換為URL地址，以顯示在前端
         // const url = URL.createObjectURL(blob)
         // audio.src = url
-        
         // build the formdata to transport wav to flask
         const Data=new FormData()
-        const container=document.querySelector('#mCSB_container')
+        const container=document.querySelector('#insert-stream')
         Data.append('stream-file',blob)
         // fetch post
         fetch('http://127.0.0.1:5000/stream_message',{
@@ -95,47 +96,50 @@ async function main () {
             // script.setAttribute("src", "../static/script.js");
             // script.src='../static/script.js';
             // document.body.appendChild(script);
-              console.log(97,data)
+              console.log(97,data.result)
             // // 將字串餵入script.js的text中
             // // 得到後端回應後自動調用 speakText 功能
-              const msg=data.stream_result;
+              const msg=data.result;
               const textmsg=script_module.setTextMessage(msg);
-              const speakmsg=script_module.speakText(textmsg);
-              if (data.stream_result===''){
-                return 'false'
+              script_module.speakText(textmsg);
+              if (data.result===''){
+                return false
               }
               console.log(102,textmsg)
 
-            // function streamMessage() {
-            // // get_data=data.result
-            // const new_voice_msg=document.createElement('div')
-            // new_voice_msg.add('new_stream_message','new')
-            // // 插入音量icon作為回應 (顯示回應文字)
-            // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+'<span class="glyphicon glyphicon-volume-up"></span>'+msg;
+            function streamMessage() {
+            // get_data=data.result
+            const new_voice_msg=document.createElement('div')
+            new_voice_msg.classList.add('insert-stream','new')
+            // 插入音量icon作為回應 (顯示回應文字)
+            console.log(115,msg)
+            // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+'<div class="glyphicon glyphicon-volume-up"></div>'+msg;
             // 欲生成圖片，則顯示在回應框內
-            // if (data.type==='image'){
-            // new_voice_msg.innerHTML='<figure class="avatar"><img src=data.image/></figure>';
-            //   return 
-            // }
+            if (data.type==='image'){
+              new_voice_msg.innerHTML='<figure class="avatar"><img src=data.image/></figure>';
+              return 
+            }
 
-            // // text area中顯示
+            // text area中顯示
             // container.appendChild(new_voice_msg);
-            // // 插入回應的音訊資訊
+            // 插入回應的音訊資訊
 
             // // 插入GPT icon 作為回應頭像
-            // setTimeout(function() {
-            //   new_voice_msg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + speakmsg;
-            //   container.appendChild(new_voice_msg).classList.add('new');
-            //   }, 500);
-            // }
+            setTimeout(function() {
+              // 插入音檔
+              new_voice_msg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>'+msg;
+              // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+msg;
+              container.appendChild(new_voice_msg).classList.add('new');
+              }, 100);
+            }
 
             // // output_audio.src=blob_url;
             // // inputtext.appendChild(speak)
             // // output_audio.play();
             
-            // setTimeout(function() {
-            //   streamMessage();
-            // }, 500); //500 ms後顯示
+            setTimeout(function() {
+              streamMessage();
+            }, 500); //500 ms後顯示
         })
       })
      }catch (error){

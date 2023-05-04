@@ -14,12 +14,14 @@
            @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
            @import url('https://fonts.googleapis.com/css?family=Lato');
            @import url("chat_sample.css");
+           /* @import url("title_hover.css"); */
         </style>
+        <title>Web Audio API in JavaScript</title>
     </head>
     <body>
-      <h1 id="h1_title">Web ChatBot</h1>
-      <section class="nav">
-        <h3 id='span-loader' class="span loader">
+      <h1 id="h1-title" class="h1-title">Web ChatBot</h1>
+      <section class="nav-title">
+        <h3 id="span-loader" class="span-loader">
           <span class="m">The</span>
           <span class="m"></span>
           <span class="m">Demo</span>
@@ -40,7 +42,7 @@
     <div class="messages">
       <div class="messages-content" id="messages-content">
         <div class="mCustomScrollbar">
-          <div class="mCSB_container" id="mCSB_container">
+          <div id="mCSB_container" class="mCSB_container">
             <!-- 要滾動的內容放在這裡 -->
           </div>
         </div>
@@ -48,6 +50,7 @@
     </div>
     <div class="message-box">
       <textarea type="text" class="message-input" id='message-input'placeholder="Type message..."></textarea>
+      <img id="img_display" src="">
       <button type="submit" class="message-submit" id="message-submit">Send</button>
 
       <label class="btn btn-info" id="start" class="start">
@@ -56,9 +59,13 @@
          <label class="btn btn-info"  id="stop" class="stop">
         <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Pause</i>
         </label>
-        <button id='toggle-btn' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          toggle box
-        </button>
+
+        <label class="btn btn-info"  id="toggle-btn" class="toggle-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <!-- <button id='toggle-btn' type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
+          <i>toggle box</i>
+        <!-- </button> -->
+      </label>
+
     </div>  
   </div>
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -78,7 +85,10 @@
     </div>
   </div>
   <div class="bg"></div>
-  <script src="../static/script.js" type="module"></script>
-  <script src="chat_sample.js"></script>
+      <script src="../static/encode-audio.js"></script>
+      <script src="../static/script.js" type="module"></script>
+      <!-- <script src="../static/chat.js"></script> -->
+      <script src="chat_sample.js"></script>
+      <script src="../static/main.js" type="module"></script>
 </body>
-  </html>
+</html>

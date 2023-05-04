@@ -1,12 +1,8 @@
 // Init speech synth
 const message = new SpeechSynthesisUtterance();
 const voicesSelect = document.getElementById('voices');
-const readBtn = document.getElementById('input-text');
-const toggleBtn = document.getElementById('toggle-btn'); 
 const select=document.getElementById('selected');
-const closeBtn = document.getElementById('close');
-const textbox= document.getElementById('text-box');
-const textwindow=document.getElementById('staticBackdrop')
+const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
 
 // Store voices
 let voices = [];
@@ -26,7 +22,6 @@ function setTextMessage(text) {
   return message
 }
 
-
 // Set voice
 function setVoice(e) {
   message.voice = voices.find(voice => voice.name === e.target.value);
@@ -43,33 +38,14 @@ function speakText() {
   speechSynthesis.speak(message);
 }
 
-// Toggle text box
-toggleBtn.addEventListener('click', (event)=>{
-    textbox.classList.toggle('show')
-});
-
-// Close button
-closeBtn.addEventListener('click', ()=>{
-  // 針對class屬性
-    textbox.classList.remove('show')
-});
-
-
-// Read text button
-// readBtn.addEventListener('click', () => {
-//   // import chat.js, and get the response from flask
-//     // setTextMessage(message);
-//     console.log(67)
-//     speakText();
-//   });
-
 select.addEventListener('click',(event)=>{
-  // decide the choosed lang
-    getVoices();
-    textwindow.classList.remove('show');
+    // decide the choosed lang
+    getVoices()
+    // classList 選定欲remove的class
+    document.querySelector('.modal-backdrop').classList.remove('show')
+    myModal.hide()
 });
 
-// speakText();
 
 
 /* 匯出函式 */

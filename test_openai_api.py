@@ -1,7 +1,6 @@
 import openai
 import os 
 import pyaudio
-import whisper
 from configparser import ConfigParser
 import os
 from flask import Flask, request, redirect, url_for, render_template,send_from_directory,jsonify, send_file
@@ -14,13 +13,10 @@ import io
 from cv2 import imwrite
 import json
 import wave
-from google.cloud.texttospeech_v1.types import SynthesizeSpeechRequest
-import google.cloud.texttospeech as tts
 from flask_cors import CORS
-from scipy.io import wavfile
-import binascii
 import time
 from pydub import AudioSegment
+import requests
 
 #%%
 app=Flask(__name__)
@@ -115,35 +111,25 @@ def blob_to_wav(blob,API_key):
     byites_content=byites_io.getvalue()
     # bytes 物件沒有 name 屬性，而 openai.Audio.transcribe 方法需要一個有 name 屬性的物件
     # 將blob轉為wav檔案
-    # wav_data = byites_content[12:]
-    riff='data'
+    riff='RIFF'
+    # 轉換成utf8編碼，查詢riff字串位置
     riff=riff.encode('utf-8')
+    print(117,riff)
     riff_start = byites_content.find(riff)
     riff_data = byites_content[riff_start:]
-    print(138,riff_data )
-    # return 'hello'  
-    # 將音頻二進位數據寫入wav檔案
-    # with wave.open("output.wav", 'wb') as wav_file:
-    #     wav_file.setparams((1, 2, 44100, 0, 'NONE', 'not compressed'))
-    #     wav_file.writeframes(riff_data)
-    
     # 將二進位格式轉換成 AudioSegment 物件
     audio_segment=write_wav(riff_data)
-    print(132,audio_segment)
-    # 將 AudioSegment 物件轉換成 wav 格式的音訊檔案
-    time.sleep(60)
-    audio_segment.export("output.wav", format="wav")
+    # # 將 AudioSegment 物件轉換成 wav 格式的音訊檔案
+    audio_segment.export("C:/Users/User/Desktop/output.wav", format="wav")
     # transcript from whisper api (S2T)
-    with open("output.wav", "rb") as audio_file:
+    with open("C:/Users/User/Desktop/output.wav", "rb") as audio_file:
         transcript=Whisper_API(audio_file,API_key)
-        print(143,transcript)
-    return 'success'
-
+    return transcript
 
 # write in wav file
-def write_wav(riff_data):
+def write_wav(wav_content):
     audio_segment = AudioSegment(
-    data= riff_data ,
+    data= wav_content,
     sample_width=2,
     frame_rate=44100,
     channels=1
@@ -156,28 +142,26 @@ def write_wav(riff_data):
 def stream_GPT():
     keyword=['圖片','畫']
     result=None
-    output_result=None
-
+    image_link=None
     if request.method=='POST':
         # 取得前端blob
         audio_blob=request.get_data()
-        stream_result=blob_to_wav(audio_blob,API_key)
-
+        audio_response=blob_to_wav(audio_blob,API_key)
+        print(audio_response)
+         # # DALEE API
+        # # 從keywords判定是否生成圖片
+        if any (word in  audio_response for word in keyword):
+            image_link=img_generator(audio_response,API_key)
+            return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
+        
         # get the text response 
         # stream_result="how's the weather today"
         # GPT3.5 API 
         # 提示以中文對話回復
-        # messages=[{"role": "system", "content":'這是一個繁體中文的對話。'},
-        #           {"role": "user", "content": Response}]
-        # stream_result=chat_completion(messages)
-        # print(169, stream_result)
-        # # DALEE API
-        # # 從keywords判定是否生成圖片
-        # if any (word in output_result for word in keyword):
-        #     img_generated_link=img_generator(output_result,API_key)
-        #     print(img_generated_link)
-            # return jsonify({'data':{'image':img_generated_link,'type':'image'}}) # add type to show in html
-    return jsonify({'data':{'stream_result':stream_result,'type':'text'}}) 
+        messages=[{"role": "system", "content":'這是一個繁體中文的對話。'},
+                  {"role": "user", "content": audio_response}]
+        result=chat_completion(messages)
+    return jsonify({'data':{'result':result,'type':'text'}}) 
 
 #%%
 """ 文字聊天模式 """
@@ -185,7 +169,7 @@ def stream_GPT():
 def text_GPT():
     keyword=['圖片','畫']
     output_result=None
-    img_generated_link=None
+    image_link=None
     if request.method=='POST':
          # 取得前端數據
         input=request.get_json()
@@ -195,9 +179,8 @@ def text_GPT():
         # 從keywords判定是否生成圖片
         if any(word in input['prompt'] for word in keyword):
             prompt=input['prompt']
-            img_generated_link=img_generator(prompt,API_key)
-            print(img_generated_link)
-            return jsonify({'data':{'image':img_generated_link,'type':'image'}}) # add type to show in html
+            image_link=img_generator(prompt,API_key)
+            return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
 
         # GPT3.5 API 
         # 提示以中文對話回復

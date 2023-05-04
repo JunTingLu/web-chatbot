@@ -21,8 +21,9 @@ let d, h, m;
 /* 文字聊天功能 */
 // 插入訊息
 function insertMessage() {
-  const container=document.querySelector('#mCSB_container')
+  const container=document.querySelector('mCSB_container')
   const msg=msginput.value.trim();
+  const img_display=document.querySelector('img_display')
   const newmsg=document.createElement('div');
   // 將 class 屬性塞入div中
   newmsg.classList.add('message', 'message-personal', 'new');

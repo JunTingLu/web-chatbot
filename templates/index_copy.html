@@ -42,16 +42,20 @@
     <div>
       <audio controls id="audio" src=""></audio>
     </div>
+
     <!-- 播放回傳音檔，並即時播放 -->
     <!-- <audio id="audio-player" src="" style="display: none;">
       <source id="audio-source" type="audio/wav">
     </audio> -->
+
       <div class="input-container">
         
         <div class="col-8">
           <!-- mb-3 在元素底部設置高度為3個單位的margin -->
         <div class="input-group mb-3">
-          <textarea class="form-control" id="input-text" rows='5' col='5' placeholder="Display" aria-label="Display"></textarea>
+          <textarea class="form-control" id="input-text" rows='5' col='5' placeholder="Display" aria-label="Display">
+          </textarea>
+          <div id="insert-stream" class="insert-stream"></div>
           <img id="img_display" src="">
         </div>
           <input type="text" id="user-input" name='user-input' placeholder="Type your message...">
