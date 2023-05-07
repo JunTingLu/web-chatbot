@@ -17,16 +17,33 @@ from flask_cors import CORS
 import time
 from pydub import AudioSegment
 import requests
-
+# for Bark api
+import replicate
 #%%
 app=Flask(__name__)
 CORS(app)
 
-# 設定檔讀取(*.ini)
+# openai api setup(*.ini)
 config=ConfigParser()
 path=config.read("C:/Users/User/Desktop/python_jupyter/for_job/javascript-audio-recorder/config.ini",encoding="utf-8")
 API_key=config.get('OpenAI','openai_API')  
 openai.api_key = API_key
+
+# Bark api setup
+cfg=ConfigParser()
+path=cfg.read("config.ini",encoding="utf-8")
+bark_api_key=cfg.get('bark-api','bark_key') 
+# download and load all models
+# set bark env
+os.environ["REPLICATE_API_TOKEN"]=bark_api_key
+# download and load all models
+# preload_models() 
+output = replicate.run(
+   "suno-ai/bark:b76242b40d67c76ab6742e987628a2a9ac019e11d56ab96c4e91ce03b79b2787",
+    input={"prompt": "Hello, my name is Suno. And, uh \u2014 and I like pizza. [laughs] But I also have other interests such as playing tic tac toe."}
+)
+# output format is {audio, [url]}
+print(42,output)
 
 #%%
 
