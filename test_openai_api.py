@@ -19,64 +19,31 @@ from pydub import AudioSegment
 import requests
 # for Bark api
 import replicate
+import bark 
+
+
 #%%
 app=Flask(__name__)
 CORS(app)
 
 # openai api setup(*.ini)
 config=ConfigParser()
-path=config.read("C:/Users/User/Desktop/python_jupyter/for_job/javascript-audio-recorder/config.ini",encoding="utf-8")
+path=config.read("./config.ini",encoding="utf-8")
 API_key=config.get('OpenAI','openai_API')  
 openai.api_key = API_key
 
 # Bark api setup
-cfg=ConfigParser()
-path=cfg.read("config.ini",encoding="utf-8")
-bark_api_key=cfg.get('bark-api','bark_key') 
-# download and load all models
-# set bark env
-os.environ["REPLICATE_API_TOKEN"]=bark_api_key
-# download and load all models
-# preload_models() 
-output = replicate.run(
-   "suno-ai/bark:b76242b40d67c76ab6742e987628a2a9ac019e11d56ab96c4e91ce03b79b2787",
-    input={"prompt": "Hello, my name is Suno. And, uh \u2014 and I like pizza. [laughs] But I also have other interests such as playing tic tac toe."}
-)
-# output format is {audio, [url]}
-print(42,output)
-
-#%%
-
-# 錄製音檔
-# chunk = 1024                     # 記錄聲音的樣本區塊大小
-# sample_format = pyaudio.paInt16  # 樣本格式，可使用 paFloat32、paInt32、paInt24、paInt16、paInt8、paUInt8、paCustomFormat
-# channels = 1                     # 聲道數量
-# fs = 44100                       # 取樣頻率，常見值為 44100 ( CD )、48000 ( DVD )、22050、24000、12000 和 11025。
-# seconds = 10                      # 錄音秒數
-# filename = "C:/Users/User/Desktop/test.wav"            # 錄音檔名
-# p = pyaudio.PyAudio()            # 建立 pyaudio 物件
-
-# def record(chunk,sample_format,fs,seconds,filename,p):
-#     print("start...")
-#     # 開啟錄音串流
-#     stream = p.open(format=sample_format, channels=channels, rate=fs, frames_per_buffer=chunk, input=True)
-#     frames = []                      # 建立聲音串列
-#     for i in range(0, int(fs / chunk * seconds)):
-#         data = stream.read(chunk)
-#         frames.append(data)          # 將聲音記錄到串列中
-
-#     stream.stop_stream()             # 停止錄音
-#     stream.close()                   # 關閉串流
-#     p.terminate()
-#     print('end...')
-#     wf = wave.open(filename, 'wb')   # 儲存聲音記錄檔
-#     wf.setnchannels(channels)        # 設定聲道
-#     wf.setsampwidth(p.get_sample_size(sample_format))  # 設定格式
-#     wf.setframerate(fs)              # 設定取樣頻率
-#     wf.writeframes(b''.join(frames)) # 存檔
-#     wf.close()
-
-
+def bark_api(prompt):
+    bark_api_key=config.get('bark-api','bark_key') 
+    # set bark env
+    os.environ["REPLICATE_API_TOKEN"]=bark_api_key
+    # download and load all models
+    output = replicate.run(
+    "suno-ai/bark:b76242b40d67c76ab6742e987628a2a9ac019e11d56ab96c4e91ce03b79b2787",
+        input={"prompt": prompt},
+    )
+    # output format is {audio, [url]}
+    print(42,output)
 #%%
 # chatGPT3.5  API
 def chat_completion(messages):
@@ -178,7 +145,9 @@ def stream_GPT():
         messages=[{"role": "system", "content":'這是一個繁體中文的對話。'},
                   {"role": "user", "content": audio_response}]
         result=chat_completion(messages)
-    return jsonify({'data':{'result':result,'type':'text'}}) 
+        output=bark_api(result)
+        
+    return jsonify({'data':{'result':output,'type':'text'}}) 
 
 #%%
 """ 文字聊天模式 """

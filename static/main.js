@@ -89,7 +89,8 @@ async function main () {
             }
           })
           .then(response=>response.json())  // 接收後端回傳json字串
-          .then(({data})=>{          
+          .then(({data})=>{   
+              const msg=data.result;       
             // const output_audio = document.querySelector('#audio-player');
             // const script=document.createElement('script');
             // script.setAttribute("type","text/javascript");
@@ -97,23 +98,19 @@ async function main () {
             // script.src='../static/script.js';
             // document.body.appendChild(script);
               console.log(97,data.result)
-            // // 將字串餵入script.js的text中
-            // // 得到後端回應後自動調用 speakText 功能
-              const msg=data.result;
-              const textmsg=script_module.setTextMessage(msg);
-              script_module.speakText(textmsg);
+
+              // const textmsg=script_module.setTextMessage(msg);
+              // script_module.speakText(textmsg);
               if (data.result===''){
                 return false
               }
-              console.log(102,textmsg)
 
             function streamMessage() {
-            // get_data=data.result
-            const new_voice_msg=document.createElement('div')
-            new_voice_msg.classList.add('insert-stream','new')
+              // get_data=data.result
+              const new_voice_msg=document.createElement('div')
+              new_voice_msg.classList.add('insert-stream','new')
             // 插入音量icon作為回應 (顯示回應文字)
             console.log(115,msg)
-            // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+'<div class="glyphicon glyphicon-volume-up"></div>'+msg;
             // 欲生成圖片，則顯示在回應框內
             if (data.type==='image'){
               new_voice_msg.innerHTML='<figure class="avatar"><img src=data.image/></figure>';
@@ -126,8 +123,10 @@ async function main () {
 
             // // 插入GPT icon 作為回應頭像
             setTimeout(function() {
+              const newVoice=document.querySelector('voice_play')
               // 插入音檔
               new_voice_msg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>'+msg;
+              newVoice.src=msg
               // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+msg;
               container.appendChild(new_voice_msg).classList.add('new');
               }, 100);

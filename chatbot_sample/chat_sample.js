@@ -1,36 +1,19 @@
 const content=document.querySelector('#messages-content')
 const msginput=document.querySelector('#message-input')
-let d, h, m;
-
-
-// function updateScrollbar() {
-//   scrollbar.getScrollElement().scrollTop = scrollbar.getScrollElement().scrollHeight;
-// }
-
-// 取得當時間(min)
-// function setDate(){
-//   d = new Date()
-//   if (m != d.getMinutes()) { // 判斷分鐘是否有變更
-//     m = d.getMinutes(); // 記錄目前分鐘
-//     // 可用css 中message:last微調
-//     $('.message:last')[0].appendChild($('<div class="timestamp">' + d.getHours() + ':' + m + '</div>')[0]);
-//   }
-// }
-
+const container=document.querySelector('#mCSB_container')
 
 /* 文字聊天功能 */
 // 插入訊息
 function insertMessage() {
-  const container=document.querySelector('mCSB_container')
   const msg=msginput.value.trim();
-  const img_display=document.querySelector('img_display')
+  const img_display=document.querySelector('#img_display')
   const newmsg=document.createElement('div');
   // 將 class 屬性塞入div中
   newmsg.classList.add('message', 'message-personal', 'new');
   newmsg.textContent = msg;
   container.appendChild(newmsg)
   // clear after sending message
-  msg.value='';
+  msginput.value='';
   fetch('http://127.0.0.1:5000/text_message',{
     method:'POST',
     body:JSON.stringify({prompt: msg+'。'}),//設定訊息為肯定句
@@ -42,8 +25,12 @@ function insertMessage() {
   .then(({data})=>{
     // insert fakemassge
       // 判斷回傳是否為圖片url
+      console.log(45,data.image)
       if (data.type==='image'){
+        const newImg=document.createElement('div')
+        newImg.classList.add('message','new')
         img_display.src=data.image;
+        newImg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+img_display.outerHTML;
         return 
         }
         // 在text area回傳文字
@@ -57,9 +44,9 @@ function insertMessage() {
           const newMsg=document.createElement('div')
           newMsg.classList.add('message', 'new');
           // 插入圖片回應
-          newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
+          // newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
           // updateScrollbar();
-          container.appendChild(newMsg);
+          // container.appendChild(newMsg);
         
           setTimeout(function() {
           newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
@@ -68,13 +55,10 @@ function insertMessage() {
           // updateScrollbar();
           }, 500);
         }
-        // msginput.value+='\n'+outputText+'\n'; 
-      // setDate();
-      // 更新消息窗口的滾動條位置
-      // updateScrollbar();
       // 在 1000 毫秒後（即 1 秒後）觸發 fakeMessage() 函式，該函式會自動回復一條虛假的消息
       setTimeout(function() {
         Message();
+        scrollToBottom();
       }, 500); //
     })
     .catch(error=>console.error(error))
@@ -94,3 +78,8 @@ window.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
+
+// 新增內容後自動往下捲
+function scrollToBottom() {
+  content.scrollTop = content.scrollHeight;
+}

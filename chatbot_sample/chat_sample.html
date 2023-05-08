@@ -35,7 +35,6 @@
 <div class="chat">
     <div class="chat-title">
       <h1 id="chat_title">Web ChatBot</h1>
-      <h2></h2>
       <figure class="avatar">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>
     </div>
@@ -43,6 +42,8 @@
       <div class="messages-content" id="messages-content">
         <div class="mCustomScrollbar">
           <div id="mCSB_container" class="mCSB_container">
+            <img id="img_display" src=""></img>
+            <audio id="voice_play" src=""></audio>
             <!-- 要滾動的內容放在這裡 -->
           </div>
         </div>
@@ -50,7 +51,6 @@
     </div>
     <div class="message-box">
       <textarea type="text" class="message-input" id='message-input'placeholder="Type message..."></textarea>
-      <img id="img_display" src="">
       <button type="submit" class="message-submit" id="message-submit">Send</button>
 
       <label class="btn btn-info" id="start" class="start">
@@ -86,7 +86,7 @@
   </div>
   <div class="bg"></div>
       <script src="../static/encode-audio.js"></script>
-      <script src="../static/script.js" type="module"></script>
+      <!-- <script src="../static/script.js" type="module"></script> -->
       <!-- <script src="../static/chat.js"></script> -->
       <script src="chat_sample.js"></script>
       <script src="../static/main.js" type="module"></script>
