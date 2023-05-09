@@ -3,3 +3,5 @@
 # Do not ignore package-lock.json other than gist.
 config.ini
 .env
+bark
+
