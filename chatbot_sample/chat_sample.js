@@ -23,43 +23,35 @@ function insertMessage() {
   })
   .then(response=>response.json())
   .then(({data})=>{
-    // insert fakemassge
-      // 判斷回傳是否為圖片url
-      console.log(45,data.image)
-      if (data.type==='image'){
-        const newImg=document.createElement('div')
-        newImg.classList.add('message','new')
-        img_display.src=data.image;
-        newImg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+img_display.outerHTML;
-        return 
-        }
         // 在text area回傳文字
         const outputText=data.result;
         console.log(61,outputText)
-        // msginput.value+=msg;
-        // 製造假訊息
         const response =outputText
-        // 假訊息回復
         function Message() {
-          const newMsg=document.createElement('div')
-          newMsg.classList.add('message', 'new');
-          // 插入圖片回應
-          // newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
-          // updateScrollbar();
-          // container.appendChild(newMsg);
-        
+            const newMsg=document.createElement('div')
+            newMsg.classList.add('message', 'new');
+            // 插入圖片回應
+            if (data.type==='image'){
+              console.log(50,data.image)
+              // const newImg=document.createElement('div')
+              // newImg.classList.add('message','new')
+              img_display.src=data.image;
+              newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
+              console.log(55, newMsg)
+              newMsg.appendChild(img_display);
+              container.appendChild(newMsg).classList.add('new');
+              return 
+              }
           setTimeout(function() {
-          newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
-          container.appendChild(newMsg).classList.add('new');
-          // setDate();
-          // updateScrollbar();
-          }, 500);
+            newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
+            container.appendChild(newMsg).classList.add('new');
+            scrollToBottom();
+          });
         }
-      // 在 1000 毫秒後（即 1 秒後）觸發 fakeMessage() 函式，該函式會自動回復一條虛假的消息
+      // 在 500 毫秒後（即 1 秒後）觸發 fakeMessage() 函式，該函式會自動回復一條虛假的消息
       setTimeout(function() {
         Message();
-        scrollToBottom();
-      }, 500); //
+      },500); //
     })
     .catch(error=>console.error(error))
 }

@@ -74,16 +74,24 @@ def Whisper_API(audio_file,API_key):
     transcript = openai.Audio.transcribe(model="whisper-1",header=headers,file=audio_file,params=params)
     return transcript['text']
 
+# examine the lang
+
 
 # DALEE  API
 def img_generator(input_text,API_key):
-    PROMPT = input_text
+    text_hint=['生成','產生']
+    if any (word in input_text for word in text_hint):
+         for word in text_hint:
+            if word in input_text:
+                print(86)
+                PROMPT = input_text.split(word)[1]
+    else:
+        PROMPT = input_text  
     openai.api_key = API_key
     response = openai.Image.create(
     prompt=PROMPT,
     n=1,
     size="256x256",
-    # response_format='b64_json'
     )
     print(response["data"][0]["url"])
     return response["data"][0]['url']
