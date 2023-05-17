@@ -4,7 +4,9 @@ const voicesSelect = document.getElementById('voices');
 const select=document.getElementById('selected');
 const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
 
-// Store voices
+
+/* 寫好特定幾種語言之下拉是選單 */
+// Choose voices 
 let voices = [];
 function getVoices() {
   voices = speechSynthesis.getVoices();
@@ -15,6 +17,9 @@ function getVoices() {
     voicesSelect.appendChild(option);
   });
 }
+
+
+
 
 // Set input text from flask
 function setTextMessage(text) {

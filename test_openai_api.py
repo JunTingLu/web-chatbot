@@ -62,16 +62,13 @@ def chat_completion(messages):
 
 
 # Whisper API
-def Whisper_API(audio_file,API_key):
-    vad_threshold=0.5
-    # openai.api_key=API_key
-    headers={
-        "Authorization": "Bearer {}".format(API_key),
-    }
-    params={
-        "vad_threshold": vad_threshold  # 調整語音活動檢測閾值
-    }
-    transcript = openai.Audio.transcribe(model="whisper-1",header=headers,file=audio_file,params=params)
+def Whisper_API(audio_file,language):
+    # params={
+    # language=language  
+    # }
+    # print(74,params)
+    transcript = openai.Audio.transcribe(model="whisper-1",file=audio_file, language=language  )
+    print(71,transcript)
     return transcript['text']
 
 # examine the lang
@@ -98,7 +95,7 @@ def img_generator(input_text,API_key):
 
 
 # 創建wav檔案 
-def blob_to_wav(blob,API_key):
+def blob_to_wav(blob,language):
     byites_io=io.BytesIO(blob)
     byites_content=byites_io.getvalue()
     # bytes 物件沒有 name 屬性，而 openai.Audio.transcribe 方法需要一個有 name 屬性的物件
@@ -115,7 +112,8 @@ def blob_to_wav(blob,API_key):
     audio_segment.export("C:/Users/User/Desktop/output.wav", format="wav")
     # transcript from whisper api (S2T)
     with open("C:/Users/User/Desktop/output.wav", "rb") as audio_file:
-        transcript=Whisper_API(audio_file,API_key)
+        transcript=Whisper_API(audio_file,language)
+        print(116,transcript)
     return transcript
 
 # write in wav file
@@ -138,7 +136,8 @@ def stream_GPT():
     if request.method=='POST':
         # 取得前端blob
         audio_blob=request.get_data()
-        audio_response=blob_to_wav(audio_blob,API_key)
+        language="en"
+        audio_response=blob_to_wav(audio_blob, language)
         print(audio_response)
          # # DALEE API
         # # 從keywords判定是否生成圖片
@@ -150,12 +149,12 @@ def stream_GPT():
         # stream_result="how's the weather today"
         # GPT3.5 API 
         # 提示以中文對話回復
-        messages=[{"role": "system", "content":'這是一個繁體中文的對話。'},
+        messages=[{"role": "system", "content":""},
                   {"role": "user", "content": audio_response}]
         result=chat_completion(messages)
-        output=bark_api(result)
+        # output=bark_api(result)
         
-    return jsonify({'data':{'result':output,'type':'text'}}) 
+    return jsonify({'data':{'result':result,'type':'text'}}) 
 
 #%%
 """ 文字聊天模式 """

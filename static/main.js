@@ -97,48 +97,48 @@ async function main () {
             // script.setAttribute("src", "../static/script.js");
             // script.src='../static/script.js';
             // document.body.appendChild(script);
-              console.log(97,data.result)
+              console.log(100,data.result)
 
-              // const textmsg=script_module.setTextMessage(msg);
-              // script_module.speakText(textmsg);
+              const textmsg=script_module.setTextMessage(msg);
+              script_module.speakText(textmsg);
               if (data.result===''){
                 return false
               }
 
-            function streamMessage() {
-              // get_data=data.result
-              const new_voice_msg=document.createElement('div')
-              new_voice_msg.classList.add('insert-stream','new')
-            // 插入音量icon作為回應 (顯示回應文字)
-            console.log(115,msg)
-            // 欲生成圖片，則顯示在回應框內
-            if (data.type==='image'){
-              new_voice_msg.innerHTML='<figure class="avatar"><img src=data.image/></figure>';
-              return 
-            }
+            // function streamMessage() {
+            //   // get_data=data.result
+            //   const new_voice_msg=document.createElement('div')
+            //   new_voice_msg.classList.add('insert-stream','new')
+            // // 插入音量icon作為回應 (顯示回應文字)
+            // console.log(115,msg)
+            // // 欲生成圖片，則顯示在回應框內
+            // if (data.type==='image'){
+            //   new_voice_msg.innerHTML='<figure class="avatar"><img src=data.image/></figure>';
+            //   return 
+            // }
 
-            // text area中顯示
-            // container.appendChild(new_voice_msg);
-            // 插入回應的音訊資訊
+            // // text area中顯示
+            // // container.appendChild(new_voice_msg);
+            // // 插入回應的音訊資訊
 
-            // // 插入GPT icon 作為回應頭像
-            setTimeout(function() {
-              const newVoice=document.querySelector('voice_play')
-              // 插入音檔
-              new_voice_msg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>'+msg;
-              newVoice.src=msg
-              // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+msg;
-              container.appendChild(new_voice_msg).classList.add('new');
-              }, 100);
-            }
+            // // // 插入GPT icon 作為回應頭像
+            // setTimeout(function() {
+            //   const newVoice=document.querySelector('voice_play')
+            //   // 插入音檔
+            //   new_voice_msg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>'+msg;
+            //   newVoice.src=msg
+            //   // new_voice_msg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>'+msg;
+            //   container.appendChild(new_voice_msg).classList.add('new');
+            //   }, 100);
+            // }
 
-            // // output_audio.src=blob_url;
-            // // inputtext.appendChild(speak)
-            // // output_audio.play();
+            // // // output_audio.src=blob_url;
+            // // // inputtext.appendChild(speak)
+            // // // output_audio.play();
             
-            setTimeout(function() {
-              streamMessage();
-            }, 500); //500 ms後顯示
+            // setTimeout(function() {
+            //   streamMessage();
+            // }, 500); //500 ms後顯示
         })
       })
      }catch (error){
