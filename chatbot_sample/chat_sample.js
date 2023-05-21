@@ -36,10 +36,10 @@ function insertMessage() {
               // const newImg=document.createElement('div')
               // newImg.classList.add('message','new')
               img_display.src=data.image;
-              newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
-              console.log(55, newMsg)
+              newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png"/></figure>';
               newMsg.appendChild(img_display);
               container.appendChild(newMsg).classList.add('new');
+
               return 
               }
           setTimeout(function() {

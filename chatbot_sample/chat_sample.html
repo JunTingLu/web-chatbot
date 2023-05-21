@@ -62,12 +62,14 @@
 
         <label class="btn btn-info"  id="toggle-btn" class="toggle-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <!-- <button id='toggle-btn' type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
-          <i>toggle box</i>
+          <i>Language</i>
         <!-- </button> -->
       </label>
 
     </div>  
   </div>
+
+  <!-- Language toggle box -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -76,7 +78,11 @@
           <button id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
             <div id="text-box" class="modal-body">
-              <select id="voices"></select>
+              <select id="voices">
+              <option value="en">English</option>
+              <option value="tw">Chinese</option>
+              <option value="ja">Japanese</option>
+              </select>
             </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="selected">Selected</button>

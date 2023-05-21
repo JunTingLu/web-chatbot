@@ -9,7 +9,6 @@ const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
 // Choose voices 
 let voices = [];
 function getVoices() {
-  voices = speechSynthesis.getVoices();
   voices.forEach(voice => {
     const option = document.createElement('option');
     option.value = voice.name;
@@ -17,9 +16,6 @@ function getVoices() {
     voicesSelect.appendChild(option);
   });
 }
-
-
-
 
 // Set input text from flask
 function setTextMessage(text) {
@@ -43,14 +39,24 @@ function speakText() {
   speechSynthesis.speak(message);
 }
 
+// the window cancel after selected lang
 select.addEventListener('click',(event)=>{
+  // send the info for lang
+  console.log(45)
+  fetch('http://127.0.0.1:5000/stream_message',{
+    method:'POST',
+    body:JSON.stringify({langinfo: voicesSelect}),
+    headers:{
+      'Content-Type':'application/json'
+      }
+    })
+    .catch(error=>console.error(error))
     // decide the choosed lang
     getVoices()
     // classList 選定欲remove的class
     document.querySelector('.modal-backdrop').classList.remove('show')
     myModal.hide()
 });
-
 
 
 /* 匯出函式 */

@@ -33,17 +33,17 @@ API_key=config.get('OpenAI','openai_API')
 openai.api_key = API_key
 
 # Bark api setup
-def bark_api(prompt):
-    bark_api_key=config.get('bark-api','bark_key') 
-    # set bark env
-    os.environ["REPLICATE_API_TOKEN"]=bark_api_key
-    # download and load all models
-    output = replicate.run(
-    "suno-ai/bark:b76242b40d67c76ab6742e987628a2a9ac019e11d56ab96c4e91ce03b79b2787",
-        input={"prompt": prompt},
-    )
-    # output format is {audio, [url]}
-    print(42,output)
+# def bark_api(prompt):
+#     bark_api_key=config.get('bark-api','bark_key') 
+#     # set bark env
+#     os.environ["REPLICATE_API_TOKEN"]=bark_api_key
+#     # download and load all models
+#     output = replicate.run(
+#     "suno-ai/bark:b76242b40d67c76ab6742e987628a2a9ac019e11d56ab96c4e91ce03b79b2787",
+#         input={"prompt": prompt},
+#     )
+#     # output format is {audio, [url]}
+#     print(42,output)
 #%%
 # chatGPT3.5  API
 def chat_completion(messages):
@@ -136,19 +136,19 @@ def stream_GPT():
     if request.method=='POST':
         # 取得前端blob
         audio_blob=request.get_data()
-        language="en"
+        # lang_info=request.get_json()
+        language=["en","tw","ja"]
+        # print(141,lang_info)
         audio_response=blob_to_wav(audio_blob, language)
         print(audio_response)
-         # # DALEE API
+        # # DALEE API
         # # 從keywords判定是否生成圖片
         if any (word in  audio_response for word in keyword):
             image_link=img_generator(audio_response,API_key)
             return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
         
         # get the text response 
-        # stream_result="how's the weather today"
-        # GPT3.5 API 
-        # 提示以中文對話回復
+        # GPT3.5 API提示以中文對話回復
         messages=[{"role": "system", "content":""},
                   {"role": "user", "content": audio_response}]
         result=chat_completion(messages)
