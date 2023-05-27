@@ -103,7 +103,11 @@ async function main () {
               const new_voice_msg=document.createElement('div')
               const newMsg=document.createElement('div')
               newMsg.classList.add('message', 'new');
-              // 插入音量icon作為回應 (顯示回應文字)
+              // 插入音量icon作為回應 
+              newVoice.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
+              newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
+              newMsg.appendChild(newVoice);
+              
               console.log(115,msg)
               // 欲生成圖片，則顯示在回應框內
               if (data.type==='image'){
