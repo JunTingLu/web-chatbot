@@ -57,10 +57,12 @@
       <label class="btn btn-info" id="start" class="start">
         <i class="fas fa-microphone" style="color:#fefffe"> Start</i>
       </label>
-         <label class="btn btn-info"  id="stop" class="stop">
+         <label class="btn btn-info"  id="pause">
         <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Pause</i>
         </label>
-
+        <label class="btn btn-info"  id="stop">
+          <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Stop</i>
+          </label>
         <label class="btn btn-info"  id="toggle-btn" class="toggle-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <!-- <button id='toggle-btn' type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
           <i>Language</i>
@@ -79,9 +81,9 @@
           <button id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
             <div id="text-box" class="modal-body">
-              <select id="voices">
+              <select id="langs">
               <option value="en">English</option>
-              <option value="tw">Chinese</option>
+              <option value="zh">Chinese</option>
               <option value="ja">Japanese</option>
               </select>
             </div>

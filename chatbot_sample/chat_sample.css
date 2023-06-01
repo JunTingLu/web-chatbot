@@ -240,6 +240,7 @@ left: 0;
 border-right: 7px solid transparent;
 }
 
+
 .messages .message .avatar {
 position: absolute;
 z-index: 1;
@@ -266,6 +267,11 @@ text-align: right;
 background: linear-gradient(135deg, #aa41f5, #be06fb);
 border-radius: 10px 10px 0 10px;
 right:20px;
+/* icon 水平翻轉 */
+-moz-transform: scaleX(-1);
+-webkit-transform: scaleX(-1);
+-o-transform: scaleX(-1);
+transform: scaleX(-1);
 }
 
 .messages .message.message-personal::before {

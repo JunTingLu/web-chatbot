@@ -1,12 +1,14 @@
-import * as script_module from './script.js';
+import * as tts from './tts.js';
 async function main () {
     try {
       const buttonStart = document.querySelector('#start')
+      const buttonPause = document.querySelector('#pause')
       const buttonStop = document.querySelector('#stop')
       const audio = document.querySelector('#audio')
       const stream_img_display=document.querySelector('#img_display')
       const inputtext=document.querySelector('#input-text')
-      
+  
+
       // 啟用設備
       const stream = await navigator.mediaDevices.getUserMedia({ // <1>
         video: false,
@@ -50,7 +52,7 @@ async function main () {
         // setAttribute 設置disabled確保禁用start按鈕
         // removeAttribute 刪除了 disabled 屬性，啟用stop按鈕
         buttonStart.setAttribute('disabled', 'disabled')
-        buttonStop.removeAttribute('disabled')
+        buttonPause.removeAttribute('disabled')
         const parameter = audioRecorder.parameters.get('Recording')
         // 設置音訊初始值為1
         parameter.setValueAtTime(1, audioContext.currentTime) // <9>
@@ -62,8 +64,8 @@ async function main () {
       
       /* 語音聊天模式 */
       // stop click (或改用長按start鍵來控制錄音時間長短，並在鬆開事件發出請求)
-        buttonStop.addEventListener('click', event => {
-        buttonStop.setAttribute('disabled', 'disabled')
+      buttonPause.addEventListener('click', event => {
+        buttonPause.setAttribute('disabled', 'disabled')
         buttonStart.removeAttribute('disabled')
   
         const parameter = audioRecorder.parameters.get('Recording')
@@ -73,28 +75,37 @@ async function main () {
         console.log(77,blob) // blob is wav file
         const inputtext=document.querySelector('#input-text')
 
-        // 轉換為URL地址，以顯示在前端
-        // const url = URL.createObjectURL(blob)
-        // audio.src = url
-        // build the formdata to transport wav to flask
-        const Data=new FormData()
+        const data=new FormData()
         const container=document.querySelector('#mCSB_container')
         const img_stream=document.querySelector('#img_stream')
-        Data.append('stream-file',blob)
+        const lang=document.querySelector('#langs')
+        // send the stream
+        data.append('file',blob)
+        // send the info of lang we choosed
+        data.append('lang',lang.value)
+
+        // user response
+        const newmsg=document.createElement('div');
+        newmsg.classList.add('message', 'message-personal', 'new');
+        newmsg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
+        container.appendChild(newmsg)
         // fetch post
         fetch('http://127.0.0.1:5000/stream_message',{
           method:'POST',
-          body:Data,
-          headers:{
-            'Content-Type':'multipart/form-data'
-            }
+          body:data
+          // headers:{
+          //   'Content-Type':'multipart/form-data'
+          //   }
           })
           .then(response=>response.json())  // 接收後端回傳json字串
           .then(({data})=>{   
-              const msg=data.result;       
+              const msg=data.result;     
+              console.log(102,data)
               console.log(100,data.result)
-              const textmsg=script_module.setTextMessage(msg);
-              script_module.speakText(textmsg);
+              const textmsg=tts.setTextMessage(msg);
+              console.log(103,textmsg)
+              tts.speakText(textmsg);
+              
               if (data.result===''){
                 return false
               }
@@ -103,10 +114,6 @@ async function main () {
               const new_voice_msg=document.createElement('div')
               const newMsg=document.createElement('div')
               newMsg.classList.add('message', 'new');
-              // 插入音量icon作為回應 
-              newVoice.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
-              newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
-              newMsg.appendChild(newVoice);
               
               console.log(115,msg)
               // 欲生成圖片，則顯示在回應框內
@@ -121,7 +128,8 @@ async function main () {
             // // 插入回應的音訊資訊
             setTimeout(function() {
               const newVoice=document.querySelector('#voice_play')
-              // 插入音檔
+
+              // GPT response
               newVoice.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
               newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
               newMsg.appendChild(newVoice);
@@ -133,14 +141,15 @@ async function main () {
             
             setTimeout(function() {
               streamMessage();
-            }, 200); //500 ms後顯示
-
-
+            }, 200); //200 ms後顯示
         })
-      }) //end of button stop
+      }) //end of button pause
+      buttonStop.addEventListener('click', event => {
+          tts.stop()
+      })
      }catch (error){
         console.log(error);
-      }
+      } 
     }
   // 執行main()
   main()

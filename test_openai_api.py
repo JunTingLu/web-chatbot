@@ -63,10 +63,6 @@ def chat_completion(messages):
 
 # Whisper API
 def Whisper_API(audio_file,language):
-    # params={
-    # language=language  
-    # }
-    # print(74,params)
     transcript = openai.Audio.transcribe(model="whisper-1",file=audio_file, language=language  )
     print(71,transcript)
     return transcript['text']
@@ -109,9 +105,10 @@ def blob_to_wav(blob,language):
     # 將二進位格式轉換成 AudioSegment 物件
     audio_segment=write_wav(riff_data)
     # # 將 AudioSegment 物件轉換成 wav 格式的音訊檔案
-    audio_segment.export("C:/Users/User/Desktop/output.wav", format="wav")
+    audio_segment.export("./output/output.wav", format="wav")
     # transcript from whisper api (S2T)
-    with open("C:/Users/User/Desktop/output.wav", "rb") as audio_file:
+    with open("./output/output.wav", "rb") as audio_file:
+        print(115,language)
         transcript=Whisper_API(audio_file,language)
         print(116,transcript)
     return transcript
@@ -135,11 +132,14 @@ def stream_GPT():
     image_link=None
     if request.method=='POST':
         # 取得前端blob
-        audio_blob=request.get_data()
-        # lang_info=request.get_json()
-        language=["en","tw","ja"]
+        file=request.files['file']
+        file_data = file.read()
+        lang=request.form['lang']
+        print(141,request.files['file'])
+        print(139,request.form['lang'])
+
         # print(141,lang_info)
-        audio_response=blob_to_wav(audio_blob, language)
+        audio_response=blob_to_wav(file_data, lang)
         print(audio_response)
         # # DALEE API
         # # 從keywords判定是否生成圖片
@@ -152,7 +152,9 @@ def stream_GPT():
         messages=[{"role": "system", "content":""},
                   {"role": "user", "content": audio_response}]
         result=chat_completion(messages)
+        print(155,result)
         # output=bark_api(result)
+       
         
     return jsonify({'data':{'result':result,'type':'text'}}) 
 

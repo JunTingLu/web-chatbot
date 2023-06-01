@@ -3,7 +3,7 @@ const inputtext=document.querySelector('#input-text')
 const usertext=document.querySelector('#user-input')
 const send=document.querySelector('#send-btn')
 const img_display=document.querySelector('#img_display')
-const buttonStop = document.querySelector('#stop')
+const buttonStop = document.querySelector('#pause')
 const buttonStart = document.querySelector('#start')
 
 /* 訊息聊天模式 */
