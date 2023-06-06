@@ -76,7 +76,7 @@ async function main () {
         const inputtext=document.querySelector('#input-text')
 
         const data=new FormData()
-        const container=document.querySelector('#mCSB_container')
+        const container=document.querySelector('#chat_content')
         const img_stream=document.querySelector('#img_stream')
         const lang=document.querySelector('#langs')
         // send the stream
@@ -86,16 +86,13 @@ async function main () {
 
         // user response
         const newmsg=document.createElement('div');
-        newmsg.classList.add('message', 'message-personal', 'new');
+        newmsg.classList.add('message', 'personal-response-volume', 'new');
         newmsg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
         container.appendChild(newmsg)
         // fetch post
         fetch('http://127.0.0.1:5000/stream_message',{
           method:'POST',
           body:data
-          // headers:{
-          //   'Content-Type':'multipart/form-data'
-          //   }
           })
           .then(response=>response.json())  // 接收後端回傳json字串
           .then(({data})=>{   

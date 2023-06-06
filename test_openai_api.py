@@ -17,10 +17,6 @@ from flask_cors import CORS
 import time
 from pydub import AudioSegment
 import requests
-# for Bark api
-import replicate
-import bark 
-
 
 #%%
 app=Flask(__name__)
@@ -32,18 +28,6 @@ path=config.read("./config.ini",encoding="utf-8")
 API_key=config.get('OpenAI','openai_API')  
 openai.api_key = API_key
 
-# Bark api setup
-# def bark_api(prompt):
-#     bark_api_key=config.get('bark-api','bark_key') 
-#     # set bark env
-#     os.environ["REPLICATE_API_TOKEN"]=bark_api_key
-#     # download and load all models
-#     output = replicate.run(
-#     "suno-ai/bark:b76242b40d67c76ab6742e987628a2a9ac019e11d56ab96c4e91ce03b79b2787",
-#         input={"prompt": prompt},
-#     )
-#     # output format is {audio, [url]}
-#     print(42,output)
 #%%
 # chatGPT3.5  API
 def chat_completion(messages):
@@ -60,15 +44,11 @@ def chat_completion(messages):
     message = response.choices[0].message.content.strip()
     return message
 
-
 # Whisper API
 def Whisper_API(audio_file,language):
     transcript = openai.Audio.transcribe(model="whisper-1",file=audio_file, language=language  )
     print(71,transcript)
     return transcript['text']
-
-# examine the lang
-
 
 # DALEE  API
 def img_generator(input_text,API_key):
@@ -113,7 +93,7 @@ def blob_to_wav(blob,language):
         print(116,transcript)
     return transcript
 
-# write in wav file
+# write stream in wav file
 def write_wav(wav_content):
     audio_segment = AudioSegment(
     data= wav_content,
@@ -135,19 +115,12 @@ def stream_GPT():
         file=request.files['file']
         file_data = file.read()
         lang=request.form['lang']
-        print(141,request.files['file'])
-        print(139,request.form['lang'])
-
-        # print(141,lang_info)
         audio_response=blob_to_wav(file_data, lang)
         print(audio_response)
-        # # DALEE API
-        # # 從keywords判定是否生成圖片
+        # DALEE API 從keywords判定是否生成圖片
         if any (word in  audio_response for word in keyword):
             image_link=img_generator(audio_response,API_key)
             return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
-        
-        # get the text response 
         # GPT3.5 API提示以中文對話回復
         messages=[{"role": "system", "content":""},
                   {"role": "user", "content": audio_response}]
@@ -166,19 +139,14 @@ def text_GPT():
     output_result=None
     image_link=None
     if request.method=='POST':
-         # 取得前端數據
+        # 取得前端數據
         input=request.get_json()
-        print(188,input['prompt'])
-
-        # DALEE API
-        # 從keywords判定是否生成圖片
+        # DALEE API 從keywords判定是否生成圖片
         if any(word in input['prompt'] for word in keyword):
             prompt=input['prompt']
             image_link=img_generator(prompt,API_key)
             return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
-
-        # GPT3.5 API 
-        # 提示以中文對話回復
+        # GPT3.5 API 提示以中文對話回復
         messages=[{"role": "system", "content":'這是一個繁體中文的對話。'},
                   {"role": "user", "content": input['prompt']}]    
         output_result=chat_completion(messages)

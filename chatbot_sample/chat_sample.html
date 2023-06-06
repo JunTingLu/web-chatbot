@@ -1,22 +1,28 @@
 <html>
     <head>
+      <!-- import jquery -->
       <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+      <!-- import bootstrap 5.1 js-->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> -->
       <link rel="stylesheet" href="https://unpkg.com/simplebar@5.3.0/dist/simplebar.min.css" />
+      <!-- import scroller -->
       <script src="https://unpkg.com/simplebar@5.3.0/dist/simplebar.min.js"></script>
       <link rel="stylesheet" href="https://unpkg.com/simplebar@5.3.0/dist/simplebar.min.css" />
+      <!-- import  bootstrap 4.6.2 css-->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+      <!-- import cloud icon -->
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!- import w3 icon -->
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <style>
            @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
            @import url('https://fonts.googleapis.com/css?family=Lato');
            @import url("chat_sample.css");
-           /* @import url("title_hover.css"); */
+           @import url("title_hover.css");
         </style>
-        <title>Web Audio API in JavaScript</title>
+        <title>Web Chatbot in JavaScript</title>
     </head>
     <body>
       <h1 id="h1-title" class="h1-title">Web ChatBot</h1>
@@ -28,7 +34,7 @@
           <span class="m"></span>
           <span class="m">of</span>
           <span class="m"></span>
-          <span class="m">voice assitance</span>
+          <span class="m">voice Assistance</span>
         </h3>
       </section>
 
@@ -40,38 +46,33 @@
     </div>
     <div class="messages">
       <div class="messages-content" id="messages-content">
-        <div class="mCustomScrollbar">
-          <div id="mCSB_container" class="mCSB_container">
+        <div class="chat_scrollbar">
+          <div id="chat_content" class="chat_content">
             <img id="img_display" src=""></img>
             <img id="img_stream" src=""></img>
             <div id="voice_play" src=""></div>
-            <!-- 要滾動的內容放在這裡 -->
           </div>
         </div>
       </div>
     </div>
     <div class="message-box">
       <textarea type="text" class="message-input" id='message-input'placeholder="Type message..."></textarea>
-      <button type="submit" class="message-submit" id="message-submit">Send</button>
-
+     
       <label class="btn btn-info" id="start" class="start">
-        <i class="fas fa-microphone" style="color:#fefffe"> Start</i>
-      </label>
-         <label class="btn btn-info"  id="pause">
-        <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Pause</i>
+          <i class="fas fa-microphone" style="color:#fefffe"> Start</i>
+        </label>
+        <label class="btn btn-info"  id="pause">
+          <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Pause</i>
         </label>
         <label class="btn btn-info"  id="stop">
-          <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Stop</i>
-          </label>
+          <i class="fa fa-microphone-slash" disabled style="color:#fefffe"> Stop</i>
+        </label>
         <label class="btn btn-info"  id="toggle-btn" class="toggle-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        <!-- <button id='toggle-btn' type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
-          <i>Language</i>
-        <!-- </button> -->
-      </label>
-
+          <i id="languages">Language</i>
+        </label>
     </div>  
+        <button type="submit" class="message-submit" id="message-submit">Send</button>  
   </div>
-
   <!-- Language toggle box -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -93,10 +94,8 @@
       </div>
     </div>
   </div>
-  <div class="bg"></div>
+      <div class="bg"></div>
       <script src="../static/encode-audio.js"></script>
-      <!-- <script src="../static/script.js" type="module"></script> -->
-      <!-- <script src="../static/chat.js"></script> -->
       <script src="chat_sample.js"></script>
       <script src="../static/main.js" type="module"></script>
 </body>

@@ -1,6 +1,6 @@
 const content=document.querySelector('#messages-content')
 const msginput=document.querySelector('#message-input')
-const container=document.querySelector('#mCSB_container')
+const container=document.querySelector('#chat_content')
 
 /* 文字聊天功能 */
 // 插入訊息
