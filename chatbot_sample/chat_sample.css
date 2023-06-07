@@ -5,9 +5,9 @@
   left: 50%;
   transform: translate(-50%, -800px);
   background-color: #646060;
-  color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
+  color: #c6c8c8;
+  padding: 10px;
+  border-radius: 10px;
   transition: all 1s ease-in-out;
 }
 
@@ -19,8 +19,9 @@
 background-color: rgb(167, 98, 232);
 border: 0;
 color: #fff;
-font-size: 12px;
-height: 30px;
+font-size: 20px;
+/* height: 30px; */
+height: 300px;
 width: 100%;
 }
 
@@ -49,29 +50,38 @@ width: 100%;
 .voices{
   margin-right: 10px;
 }
-body {
-  font-family: "ROBOTO", sans-serif;
-  background-color: #322f2f;
-  z-index:1;
+
+#langbtn{
+  background-color: #1685f5;
+  font-family:"ROBOTO", sans-serif;
+  position: relative;
+  margin-bottom:0;
+  height: 35px;
+  width: inherit;
+  text-align: center;
+  border:5px;
 }
 
+#langbtn:hover{
+  background-color: #60dcf5;
+}
 
-body {
-  background: linear-gradient(135deg, #bca7f4, #7f3fff); /* 135deg 漸層 */
+body{
+  background: linear-gradient(0deg, #855bfa,#bca7f4,#60b5fb,#72a1ff, #5b08ff); /* 135deg 漸層 */
   background-size: cover;
   font-family: sans-serif;
   line-height: 1.3;
-  z-index:1;
+  z-index:0;
   overflow: hidden;/* 隱藏任何超出 body 範圍的內容，以防止畫面出現卷軸 */
   }
 
-.bg {
+.bg{
   width: 100%;
   height: 100%;
-  top:0;
+  top: 0;
   left: 0;
-  z-index:0;
-  background: url("https://image.blocktempo.com/2023/04/Destaque-ChatGPT.jpg") no-repeat 0 0;
+  z-index:1;
+  background: url("https://image.blocktempo.com/2023/04/Destaque-ChatGPT.jpg") no-repeat -5 0;
   filter: blur(70px);
   transform: scale(1.1);/* 背景放大1.2倍 */
   }  
@@ -81,7 +91,7 @@ body {
   color: #fff;
   text-align: center;
   font-size: 70px;
-  z-index:1;
+  z-index:11;
 }
 
 .nav-title{
@@ -91,14 +101,10 @@ body {
     font-weight: 80;
     color: #ffffff;
     text-align: center;
+    z-index: 50;
   }
 
 
-/* .toggle-btn{
-color:#e6e7ec;
-background-color:rgb(56, 173, 56);
-font-style: italic;
-} */
 
 /* .btn-selected{
 margin-top: 10px;
@@ -107,12 +113,6 @@ margin-top: 10px;
 /*--------------------
 Body
 --------------------*/
-/* *,
-*::before,
-*::after {
-box-sizing: border-box;
-} */
-
 html,
 body {
 height: 100%;
@@ -201,7 +201,7 @@ height: 95%; /* 佔message的95% */
 width: 100%;
 /* 加入內容言神卷軸 */
 overflow-y: scroll;
-overflow: hidden;
+/* overflow: hidden; */
 }
 .messages .message {
 clear: both;
@@ -227,7 +227,6 @@ left: 0;
 border-right: 7px solid transparent;
 }
 
-
 .messages .message .avatar {
 position: absolute;
 z-index: 1;
@@ -242,6 +241,7 @@ padding: 0;
 border: 2px solid rgba(255, 255, 255, 0.24);
 } 
 
+/* 以圖片回應 */
 .messages .message .avatar img {
 width: 100%;
 height: auto;
@@ -263,12 +263,9 @@ color: #fff;
 background: linear-gradient(135deg,#7b8394, #4780fc);
 border-radius: 10px 10px 10px 0;
 /* icon 水平翻轉 */
-/* -moz-transform: scaleX(-1);
--webkit-transform: scaleX(-1); */
 -o-transform: scaleX(-1);
 transform: scaleX(-1);
 }
-
 
 .messages .message.message-personal::before {
 left: auto;
@@ -278,10 +275,6 @@ border-left: 5px solid transparent;
 border-top: 4px solid  #4780fc;
 bottom: -4px;
 }
-
-/* .messages .message:last-child {
-margin-bottom: 15px;
-} */
 
 .messages .message.new {
 margin-left:50px;
@@ -310,7 +303,8 @@ border: none;
 outline: none;
 resize: none;
 color: rgb(255, 255, 255);
-font-size: 15px;
+font-size: 17px;
+font-family:"ROBOTO", sans-serif;
 height: 30px;
 margin: 0;
 padding-right:30px;
@@ -320,19 +314,49 @@ width: 300px;
 color: transparent;
 }
 
-.message-box .message-input .start{
-  border-radius: 10px;
-  background-color:#248A52;
-  text-transform: uppercase;
+.contentbtn{
+  float: right;
 }
 
-.message-box.stop{
-  border-radius: 10px;
-  text-transform: uppercase;
+
+#start{
+  position: relative;
+  background-color: #1685f5;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family:"ROBOTO", sans-serif;
+}
+
+#start:hover{
+  background-color: #60dcf5;
+}
+
+#pause{
+  position: relative;
+  background-color: #1685f5;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family:"ROBOTO", sans-serif;
+}
+
+#pause:hover{
+  background-color: #60dcf5;
+}
+
+#stop{
+  position: relative;
+  background-color: #1685f5;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family:"ROBOTO", sans-serif;
+  /* text-transform: uppercase; */
+}
+
+#stop:hover{
+  background-color: #60dcf5;
 }
 
 .message-submit {
-/* position: absolute; */
 z-index: 1;
 top: 10px;
 right: 10px;
@@ -342,47 +366,21 @@ color: #fff;
 border: none;
 background: rgba(255, 255, 255, 0.24);
 filter:blur(5.8);
-font-size:10px;
-text-transform: uppercase;
+font-size:15px;
+font-family:"ROBOTO", sans-serif;
 line-height: 1;
 padding: 5px 5px;
 border-radius: 10px;
 }
 
-.message-box.btn-start{
-position: absolute;
-z-index: 1;
-top: 9px;
-right: 10px;
-color: #fff;
-border: none;
-background: #248A52;
-font-size: 30px;
-text-transform: uppercase;
-line-height: 1;
-padding: 6px 10px;
-border-radius: 10px;
-outline: none ;
-}
 
 .message-submit:hover {
 background: #4fabf7;
 }
 
-/*--------------------
-Custom Srollbar
---------------------*/
-/* .mCSB_scrollTools {
-margin: 1px -3px 1px 0;
-opacity: 0;
-} */
-
-/*.mCSB_inside元素下直接子元素中的.chat_content元素 */
-/* .mCSB_inside>.chat_content {
-margin-right: 0px;
-padding: 0 10px;
-} */
-
-/* .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-background-color: rgba(0, 0, 0, 0.5);
-} */
+.modal-title{
+  text-align: left;
+  font-family: "ROBOTO", sans-serif;
+  font-size: 30px;
+  font-weight: 200;
+}

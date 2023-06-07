@@ -20,14 +20,14 @@
            @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
            @import url('https://fonts.googleapis.com/css?family=Lato');
            @import url("chat_sample.css");
-           @import url("title_hover.css");
+           @import url("content_hover.css");
         </style>
         <title>Web Chatbot in JavaScript</title>
     </head>
     <body>
       <h1 id="h1-title" class="h1-title">Web ChatBot</h1>
-      <section class="nav-title">
-        <h3 id="span-loader" class="span-loader">
+      <section id="nav-title" class="nav-title">
+        <h3 id="span-loader" class="span loader">
           <span class="m">The</span>
           <span class="m"></span>
           <span class="m">Demo</span>
@@ -37,7 +37,7 @@
           <span class="m">voice Assistance</span>
         </h3>
       </section>
-
+      <div class="bg"></div>
 <div class="chat">
     <div class="chat-title">
       <h1 id="chat_title">Web ChatBot</h1>
@@ -57,8 +57,8 @@
     </div>
     <div class="message-box">
       <textarea type="text" class="message-input" id='message-input'placeholder="Type message..."></textarea>
-     
-      <label class="btn btn-info" id="start" class="start">
+     <div class="contentbtn" style="text-align: center;">
+        <label class="btn btn-info" id="start" class="start">
           <i class="fas fa-microphone" style="color:#fefffe"> Start</i>
         </label>
         <label class="btn btn-info"  id="pause">
@@ -67,9 +67,11 @@
         <label class="btn btn-info"  id="stop">
           <i class="fa fa-microphone-slash" disabled style="color:#fefffe"> Stop</i>
         </label>
-        <label class="btn btn-info"  id="toggle-btn" class="toggle-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <br>
+        <label class="btn btn-info"  id="langbtn" class="langbtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           <i id="languages">Language</i>
         </label>
+      </div>
     </div>  
         <button type="submit" class="message-submit" id="message-submit">Send</button>  
   </div>
@@ -94,7 +96,6 @@
       </div>
     </div>
   </div>
-      <div class="bg"></div>
       <script src="../static/encode-audio.js"></script>
       <script src="chat_sample.js"></script>
       <script src="../static/main.js" type="module"></script>
