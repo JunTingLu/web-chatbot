@@ -77,7 +77,6 @@ async function main () {
 
         const data=new FormData()
         const container=document.querySelector('#chat_content')
-        const img_stream=document.querySelector('#img_stream')
         const lang=document.querySelector('#langs')
         // send the stream
         data.append('file',blob)
@@ -95,10 +94,9 @@ async function main () {
           body:data
           })
           .then(response=>response.json())  // 接收後端回傳json字串
-          .then(({data})=>{   
+          .then(({data})=>{ 
+            console.log(99,data)  
               const msg=data.result;     
-              console.log(102,data)
-              console.log(100,data.result)
               const textmsg=tts.setTextMessage(msg);
               console.log(103,textmsg)
               tts.speakText(textmsg);
@@ -115,17 +113,21 @@ async function main () {
               console.log(115,msg)
               // 欲生成圖片，則顯示在回應框內
               if (data.type==='image'){
-                img_stream.src=msg;
+                const img_stream=document.createElement('img')
+                img_stream.src=data.image;
+                console.log(117,img_stream)
                 newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png"/></figure>';
-                newMsg.appendChild(img_display);
+                newMsg.appendChild(img_stream);
                 container.appendChild(newMsg).classList.add('new');
+                setTimeout(function() {
+                  scrollToBottom();
+                },500);
                 return 
               }
               
             // // 插入回應的音訊資訊
             setTimeout(function() {
-              const newVoice=document.querySelector('#voice_play')
-
+              const newVoice=document.createElement('div')
               // GPT response
               newVoice.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
               newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';

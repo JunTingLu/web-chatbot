@@ -6,6 +6,7 @@ const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
 
 // getVoices()需搭配監聽voiceschanged事件，否則會回傳空陣列
 speechSynthesis.addEventListener('voiceschanged', setVoices);
+// 創建語言列表
 const langs={
     ja: 'ja-JP',
     en: 'en-US',
@@ -51,17 +52,16 @@ function setTextMessage(text) {
 function speakText() {
   speechSynthesis.speak(synth);
   // 調整語速
-  synth.rate=0.5
+  speechSynthesis.rate=1
   // 調整語調
-  synth.pitch=1.1
-  console.log(41,synth)
+  speechSynthesis.pitch=1.3
 }
 
 
 /* 匯出函式 */
 export {
   // 函式內容
-  // setVoices,
+  setVoices,
   setTextMessage,
   speakText,
   stop

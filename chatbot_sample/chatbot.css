@@ -52,18 +52,30 @@ width: 100%;
 }
 
 #langbtn{
-  background-color: #1685f5;
-  font-family:"ROBOTO", sans-serif;
+  background-color: #ffaa01;
+  font-family:normal;
   position: relative;
   margin-bottom:0;
+  font-weight: bold;
   height: 35px;
-  width: inherit;
+  width: 100%;
   text-align: center;
   border:5px;
 }
 
 #langbtn:hover{
   background-color: #60dcf5;
+}
+
+#langs{
+  background-color: rgb(139, 139, 143);
+  color: #ffff;
+  width: 300px;
+  text-align: left;
+  height: 30px;
+  box-shadow: bisque;
+  box-sizing: 5px;
+  border-radius: 5px;
 }
 
 body{
@@ -118,8 +130,9 @@ body {
 height: 100%;
 }
 
-.languages{
-  font-style:initial;
+#languages{
+  font-style: initial;
+  font-family: sans-serif;
   text-align: center;
 }
 
@@ -201,8 +214,9 @@ height: 95%; /* 佔message的95% */
 width: 100%;
 /* 加入內容言神卷軸 */
 overflow-y: scroll;
-/* overflow: hidden; */
+overflow: hidden;
 }
+
 .messages .message {
 clear: both;
 float: left;
@@ -267,6 +281,7 @@ border-radius: 10px 10px 10px 0;
 transform: scaleX(-1);
 }
 
+
 .messages .message.message-personal::before {
 left: auto;
 right: 0;
@@ -278,11 +293,7 @@ bottom: -4px;
 
 .messages .message.new {
 margin-left:50px;
-}
-
-.img_display{
-  position: absolute;
-  margin-left:150px;
+background: linear-gradient(135deg,#7b8394, #4780fc);
 }
 
 /*--------------------
@@ -318,13 +329,12 @@ color: transparent;
   float: right;
 }
 
-
 #start{
   position: relative;
   background-color: #1685f5;
   border-radius: 5px;
   font-size: 15px;
-  font-family:"ROBOTO", sans-serif;
+  font-family: cursive;
 }
 
 #start:hover{
@@ -336,7 +346,7 @@ color: transparent;
   background-color: #1685f5;
   border-radius: 5px;
   font-size: 15px;
-  font-family:"ROBOTO", sans-serif;
+  font-family: cursive;
 }
 
 #pause:hover{
@@ -348,12 +358,26 @@ color: transparent;
   background-color: #1685f5;
   border-radius: 5px;
   font-size: 15px;
-  font-family:"ROBOTO", sans-serif;
-  /* text-transform: uppercase; */
+  font-family:cursive;
 }
 
 #stop:hover{
   background-color: #60dcf5;
+}
+
+#selected{
+  border-radius: 20px;
+  background-color: #1959fa;
+  color: #ffffff;
+  width: 100px;
+  position: relative;
+  margin-left: auto;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+#selected:hover{
+  background-color: #51d2f6;
 }
 
 .message-submit {
@@ -378,9 +402,16 @@ border-radius: 10px;
 background: #4fabf7;
 }
 
+.modal-content{
+  border-radius: 10px;
+}
 .modal-title{
-  text-align: left;
+  color: #ffffff;
+  text-align: center;
   font-family: "ROBOTO", sans-serif;
   font-size: 30px;
-  font-weight: 200;
+  font-weight: bold;
+  font-family: inherit;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }

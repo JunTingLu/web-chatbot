@@ -13,13 +13,13 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
       <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
       <!-- import cloud icon -->
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <!- import w3 icon -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- import w3 icon  -->
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <style>
            @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
            @import url('https://fonts.googleapis.com/css?family=Lato');
-           @import url("chat_sample.css");
+           @import url("chatbot.css");
            @import url("content_hover.css");
         </style>
         <title>Web Chatbot in JavaScript</title>
@@ -48,9 +48,6 @@
       <div class="messages-content" id="messages-content">
         <div class="chat_scrollbar">
           <div id="chat_content" class="chat_content">
-            <img id="img_display" src=""></img>
-            <img id="img_stream" src=""></img>
-            <div id="voice_play" src=""></div>
           </div>
         </div>
       </div>
@@ -58,14 +55,14 @@
     <div class="message-box">
       <textarea type="text" class="message-input" id='message-input'placeholder="Type message..."></textarea>
      <div class="contentbtn" style="text-align: center;">
-        <label class="btn btn-info" id="start" class="start">
-          <i class="fas fa-microphone" style="color:#fefffe"> Start</i>
+        <label class="btn btn-info" id="start">
+          <i class="fas fa-microphone"> Start</i>
         </label>
         <label class="btn btn-info"  id="pause">
-          <i class="fa fa-hand-paper-o" disabled style="color:#fefffe"> Pause</i>
+          <i class="fa fa-hand-paper-o" disabled> Pause</i>
         </label>
         <label class="btn btn-info"  id="stop">
-          <i class="fa fa-microphone-slash" disabled style="color:#fefffe"> Stop</i>
+          <i class="fa fa-microphone-slash" disabled> Stop</i>
         </label>
         <br>
         <label class="btn btn-info"  id="langbtn" class="langbtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -78,26 +75,27 @@
   <!-- Language toggle box -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content" style="background-color: rgb(214, 221, 221);">
+        <div class="modal-header" style="background-color: rgb(63, 89, 255);">
           <h5 class="modal-title" id="staticBackdropLabel">Choose Voice</h5>
-          <button id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button id="close" class="close" data-bs-dismiss="modal" aria-hidden="true" style="color:aliceblue">&times;</button>
         </div>
-            <div id="text-box" class="modal-body">
+            <div id="text-box" class="modal-body" style="background-color: rgb(214, 221, 221);";>
               <select id="langs">
               <option value="en">English</option>
               <option value="zh">Chinese</option>
               <option value="ja">Japanese</option>
               </select>
             </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="selected">Selected</button>
-        </div>
+        <!-- <div class="modal-footer"> -->
+          <button type="button" class="btn" id="selected">Selected</button>
+        <!-- </div> -->
       </div>
     </div>
   </div>
       <script src="../static/encode-audio.js"></script>
-      <script src="chat_sample.js"></script>
+      <script src="chatbot.js"></script>
       <script src="../static/main.js" type="module"></script>
-</body>
+      <script src="../static/tts.js"></script>
+    </body>
 </html>

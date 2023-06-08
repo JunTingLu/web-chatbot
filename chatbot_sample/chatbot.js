@@ -6,7 +6,6 @@ const container=document.querySelector('#chat_content')
 // 插入訊息
 function insertMessage() {
   const msg=msginput.value.trim();
-  const img_display=document.querySelector('#img_display')
   const newmsg=document.createElement('div');
   // 將 class 屬性塞入div中
   newmsg.classList.add('message', 'message-personal', 'new');
@@ -33,25 +32,27 @@ function insertMessage() {
             // 插入圖片回應
             if (data.type==='image'){
               console.log(50,data.image)
-              // const newImg=document.createElement('div')
-              // newImg.classList.add('message','new')
+              const img_display=document.createElement("img")
               img_display.src=data.image;
               newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png"/></figure>';
               newMsg.appendChild(img_display);
               container.appendChild(newMsg).classList.add('new');
-
+              setTimeout(function() {
+                scrollToBottom();
+              },500);
               return 
-              }
+          }
+
           setTimeout(function() {
             newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
             container.appendChild(newMsg).classList.add('new');
             scrollToBottom();
           });
         }
-      // 在 500 毫秒後（即 1 秒後）觸發 fakeMessage() 函式，該函式會自動回復一條虛假的消息
+      // 在 500 毫秒後（即 1 秒後）觸發 fakeMessage() 函式
       setTimeout(function() {
         Message();
-      },500); //
+      },300); //
     })
     .catch(error=>console.error(error))
 }
@@ -73,5 +74,6 @@ window.addEventListener('keydown', function(e) {
 
 // 新增內容後自動往下捲
 function scrollToBottom() {
+  console.log(75)
   content.scrollTop = content.scrollHeight;
 }

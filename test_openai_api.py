@@ -75,11 +75,10 @@ def blob_to_wav(blob,language):
     byites_io=io.BytesIO(blob)
     byites_content=byites_io.getvalue()
     # bytes 物件沒有 name 屬性，而 openai.Audio.transcribe 方法需要一個有 name 屬性的物件
-    # 將blob轉為wav檔案
     riff='RIFF'
     # 轉換成utf8編碼，查詢riff字串位置
     riff=riff.encode('utf-8')
-    print(117,riff)
+    # wav 內容標頭
     riff_start = byites_content.find(riff)
     riff_data = byites_content[riff_start:]
     # 將二進位格式轉換成 AudioSegment 物件
@@ -107,7 +106,7 @@ def write_wav(wav_content):
 """ 語音聊天模式 """
 @app.route('/stream_message',methods=['GET','POST'])
 def stream_GPT():
-    keyword=['圖片','畫']
+    keyword=['圖片','图片','畫']
     result=None
     image_link=None
     if request.method=='POST':
@@ -119,14 +118,14 @@ def stream_GPT():
         print(audio_response)
         # DALEE API 從keywords判定是否生成圖片
         if any (word in  audio_response for word in keyword):
+        
             image_link=img_generator(audio_response,API_key)
+            print(123,image_link)
             return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
         # GPT3.5 API提示以中文對話回復
         messages=[{"role": "system", "content":""},
                   {"role": "user", "content": audio_response}]
         result=chat_completion(messages)
-        print(155,result)
-        # output=bark_api(result)
        
         
     return jsonify({'data':{'result':result,'type':'text'}}) 
@@ -135,7 +134,7 @@ def stream_GPT():
 """ 文字聊天模式 """
 @app.route('/text_message',methods=['GET','POST'])
 def text_GPT():
-    keyword=['圖片','畫']
+    keyword=['圖片','图片','畫']
     output_result=None
     image_link=None
     if request.method=='POST':
