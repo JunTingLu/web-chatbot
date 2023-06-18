@@ -118,16 +118,13 @@ def stream_GPT():
         print(audio_response)
         # DALEE API 從keywords判定是否生成圖片
         if any (word in  audio_response for word in keyword):
-        
             image_link=img_generator(audio_response,API_key)
-            print(123,image_link)
             return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
         # GPT3.5 API提示以中文對話回復
         messages=[{"role": "system", "content":""},
                   {"role": "user", "content": audio_response}]
         result=chat_completion(messages)
        
-        
     return jsonify({'data':{'result':result,'type':'text'}}) 
 
 #%%

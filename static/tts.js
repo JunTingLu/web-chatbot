@@ -1,4 +1,3 @@
-// Init speech synth
 const synth = new SpeechSynthesisUtterance();
 const voicesSelect = document.getElementById('langs');
 const select=document.getElementById('selected');
@@ -21,46 +20,41 @@ function setVoices(voices, languages) {
       const option = document.createElement('option');
       option.value = voice.lang;
       option.innerText = `${voice.lang}`;
-      console.log(33,option.value)
       if(languages.some(lang =>option.value.includes(lang))) {  
+        console.log('lang options',option)
       }
   }); 
 }
 
 select.addEventListener('click',(event)=>{
   synth.lang =langs[voicesSelect.value];
-  console.log(10,synth)
-  // classList 選定欲remove的class
-  console.log(46,voicesSelect.value)
-  // the window cancel after selected lang
+  // 選擇完語言後挑出互動視窗
   document.querySelector('.modal-backdrop').classList.remove('show')
   myModal.hide()
 });
 
 // 取消時停止撥放
-function stop(){
+function stop() {
     speechSynthesis.cancel();
 }
 
-// Set input text from flask
+// 接收後端回傳訊息
 function setTextMessage(text) {
   synth.text = text;
   return synth
 }
 
-// Speak text
+// 語音輸出
 function speakText() {
-  speechSynthesis.speak(synth);
   // 調整語速
   speechSynthesis.rate=1
   // 調整語調
   speechSynthesis.pitch=1.3
+  speechSynthesis.speak(synth);
 }
-
 
 /* 匯出函式 */
 export {
-  // 函式內容
   setVoices,
   setTextMessage,
   speakText,

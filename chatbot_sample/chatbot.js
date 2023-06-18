@@ -49,10 +49,10 @@ function insertMessage() {
             scrollToBottom();
           });
         }
-      // 在 500 毫秒後（即 1 秒後）觸發 fakeMessage() 函式
+        
       setTimeout(function() {
         Message();
-      },300); //
+      },500); 
     })
     .catch(error=>console.error(error))
 }
