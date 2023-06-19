@@ -3,16 +3,18 @@ const msginput=document.querySelector('#message-input')
 const container=document.querySelector('#chat_content')
 
 /* 文字聊天功能 */
-// 插入訊息
 function insertMessage() {
   const msg=msginput.value.trim();
   const newmsg=document.createElement('div');
   // 將 class 屬性塞入div中
   newmsg.classList.add('message', 'message-personal', 'new');
+  console.log(14,newmsg)
   newmsg.textContent = msg;
   container.appendChild(newmsg)
   // clear after sending message
   msginput.value='';
+  scrollToBottom();
+ 
   fetch('http://127.0.0.1:5000/text_message',{
     method:'POST',
     body:JSON.stringify({prompt: msg+'。'}),//設定訊息為肯定句
@@ -24,14 +26,13 @@ function insertMessage() {
   .then(({data})=>{
         // 在text area回傳文字
         const outputText=data.result;
-        console.log(61,outputText)
         const response =outputText
-        function Message() {
+        
+      setTimeout(function() {
             const newMsg=document.createElement('div')
             newMsg.classList.add('message', 'new');
             // 插入圖片回應
             if (data.type==='image'){
-              console.log(50,data.image)
               const img_display=document.createElement("img")
               img_display.src=data.image;
               newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png"/></figure>';
@@ -47,12 +48,8 @@ function insertMessage() {
             newMsg.innerHTML = '<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>' + response;
             container.appendChild(newMsg).classList.add('new');
             scrollToBottom();
-          });
-        }
-        
-      setTimeout(function() {
-        Message();
-      },500); 
+          },0);
+      },0); 
     })
     .catch(error=>console.error(error))
 }

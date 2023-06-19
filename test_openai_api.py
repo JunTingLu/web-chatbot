@@ -106,7 +106,7 @@ def write_wav(wav_content):
 """ 語音聊天模式 """
 @app.route('/stream_message',methods=['GET','POST'])
 def stream_GPT():
-    keyword=['圖片','图片','畫']
+    keyword=['圖片','图片','畫','picture','generate','がぞう','かく']
     result=None
     image_link=None
     if request.method=='POST':
@@ -115,7 +115,6 @@ def stream_GPT():
         file_data = file.read()
         lang=request.form['lang']
         audio_response=blob_to_wav(file_data, lang)
-        print(audio_response)
         # DALEE API 從keywords判定是否生成圖片
         if any (word in  audio_response for word in keyword):
             image_link=img_generator(audio_response,API_key)
@@ -131,7 +130,7 @@ def stream_GPT():
 """ 文字聊天模式 """
 @app.route('/text_message',methods=['GET','POST'])
 def text_GPT():
-    keyword=['圖片','图片','畫']
+    keyword=['圖片','图片','畫','picture','generate','がぞう','かく']
     output_result=None
     image_link=None
     if request.method=='POST':
@@ -143,7 +142,7 @@ def text_GPT():
             image_link=img_generator(prompt,API_key)
             return jsonify({'data':{'image':image_link,'type':'image'}}) # add type to show in html
         # GPT3.5 API 提示以中文對話回復
-        messages=[{"role": "system", "content":'這是一個繁體中文的對話。'},
+        messages=[{"role": "system", "content":'。'},
                   {"role": "user", "content": input['prompt']}]    
         output_result=chat_completion(messages)
 

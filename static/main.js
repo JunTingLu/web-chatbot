@@ -73,6 +73,7 @@ async function main () {
         newmsg.classList.add('message', 'personal-response-volume', 'new');
         newmsg.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
         container.appendChild(newmsg)
+        scrollToBottom();
         // fetch post
         fetch('http://127.0.0.1:5000/stream_message',{
           method:'POST',
@@ -87,39 +88,34 @@ async function main () {
               if (data.result===''){
                 return false
               }
-
-            function streamMessage() {
-              const newMsg=document.createElement('div')
-              newMsg.classList.add('message', 'new');
-              // 欲生成圖片，則顯示在回應框內
-              if (data.type==='image'){
-                const img_stream=document.createElement('img')
-                img_stream.src=data.image;
-                newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png"/></figure>';
-                newMsg.appendChild(img_stream);
-                container.appendChild(newMsg).classList.add('new');
-                setTimeout(function() {
-                  scrollToBottom();
-                },400); //400 ms後顯示圖片
-                return 
-              }
-              
-            // 插入回應的音訊資訊
-            setTimeout(function() {
-              const newVoice=document.createElement('div')
-              // GPT response
-              newVoice.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
-              newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
-              newMsg.appendChild(newVoice);
-              container.appendChild(newMsg).classList.add('div');
-              scrollToBottom();
-              }, 200); //200 ms後顯示
-            }
             
             setTimeout(function() {
-              streamMessage();
-              scrollToBottom();
-            }, 200); //200 ms後顯示
+                const newMsg=document.createElement('div')
+                newMsg.classList.add('message', 'new');
+                // 欲生成圖片，則顯示在回應框內
+                if (data.type==='image'){
+                  const img_stream=document.createElement('img')
+                  img_stream.src=data.image;
+                  newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png"/></figure>';
+                  newMsg.appendChild(img_stream);
+                  container.appendChild(newMsg).classList.add('new');
+                  setTimeout(function() {
+                    scrollToBottom();
+                  },500); //500 ms後顯示圖片
+                  return 
+                }
+                
+              // 插入回應的音訊資訊
+              setTimeout(function() {
+                const newVoice=document.createElement('div')
+                // GPT response
+                newVoice.innerHTML = '<i class="fa fa-volume-up" style="color:white"></i>';
+                newMsg.innerHTML='<figure class="avatar"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1200px-ChatGPT_logo.svg.png" /></figure>';
+                newMsg.appendChild(newVoice);
+                container.appendChild(newMsg).classList.add('div');
+                scrollToBottom();
+                }, 0); //0 ms後顯示
+            }, 0); //0 ms後顯示
 
             // 新增內容後自動往下捲
             function scrollToBottom() {

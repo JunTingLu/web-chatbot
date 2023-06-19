@@ -141,7 +141,7 @@ position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-width: 1000px;
+width: 1200px;
 height: 80vh;
 max-height: 600px;
 z-index: 2;
@@ -188,6 +188,7 @@ margin: 0;
 padding: 0;
 border: 2px solid rgba(241, 235, 235, 0.24);
 }
+
 .chat-title .avatar img {
 width: 100%;
 height: auto;
@@ -199,19 +200,28 @@ Messages
 .messages {
 flex: 1 1 auto;
 color: rgba(255, 255, 255, 0.5);
-overflow: hidden;
+overflow: auto;
 position: relative;
-width: 100%;
+width: 1200px;
 } 
+
 .messages .messages-content {
 position: absolute;
 top: 0;
 left: 0;
 height: 95%; /* 佔message的95% */
-width: 100%;
+width:1200px;
 /* 加入內容言神卷軸 */
 overflow-y: scroll;
-overflow: hidden;
+overflow: auto;
+/* 隱藏滾動軸 */
+scrollbar-width: thin; 
+-ms-overflow-style: none; 
+}
+
+/* 顯示轉軸寬度 */
+.messages .messages-content::-webkit-scrollbar {
+  width: 0em;
 }
 
 .messages .message {
@@ -254,17 +264,18 @@ float: right;
 color: #fff;
 text-align: right;
 border-radius: 10px 10px 0 10px;
-right:20px;
+margin-right:20px;
 background-color: #7a8380;
+width:auto;
 }
 
 .messages .message.message-personal::before {
-  left: auto;
-  right: 0;
-  border-right: none;
-  border-left: 5px solid transparent;
-  border-top: 4px solid  #7a8380;
-  bottom: -4px;
+left: auto;
+right: 0;
+border-right: none;
+border-left: 5px solid transparent;
+border-top: 4px solid  #7a8380;
+bottom: -4px;
 }
 
 .messages .message.personal-response-volume.new {
@@ -279,18 +290,17 @@ transform: scaleX(-1);
 }
 
 .messages .message.personal-response-volume::before {
-  bottom: -6px;
-  border-top: 6px solid #7a8380;
-  left: 0;
-  border-right: 7px solid transparent;
+bottom: -6px;
+border-top: 6px solid #7a8380;
+left: 0;
+border-right: 7px solid transparent;
 }
-
-
 
 .messages .message.new {
 margin-left:50px;
 color:#fff ;
 background-color: #5b08ff;
+width:50%;;
 }
 
 /* 在message DOM中插入訊息內容*/

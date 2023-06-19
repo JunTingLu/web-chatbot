@@ -2,15 +2,17 @@ const synth = new SpeechSynthesisUtterance();
 const voicesSelect = document.getElementById('langs');
 const select=document.getElementById('selected');
 const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
+// 設定語言列表
+const langs={
+      ja: 'ja-JP',
+      en: 'en-US',
+      zh: 'zh-TW'  
+  } 
+// speechSynthesis 語言初始化
+synth.lang =langs[voicesSelect.value];
 
 // getVoices()需搭配監聽voiceschanged事件，否則會回傳空陣列
 speechSynthesis.addEventListener('voiceschanged', setVoices);
-// 創建語言列表
-const langs={
-    ja: 'ja-JP',
-    en: 'en-US',
-    zh: 'zh-TW'  
-} 
 
 function setVoices(voices, languages) {
   languages = ["en", "ja", "zh"];
@@ -49,7 +51,7 @@ function speakText() {
   // 調整語速
   speechSynthesis.rate=1
   // 調整語調
-  speechSynthesis.pitch=1.3
+  speechSynthesis.pitch=1.2
   speechSynthesis.speak(synth);
 }
 
