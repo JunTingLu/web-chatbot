@@ -300,7 +300,7 @@ border-right: 7px solid transparent;
 margin-left:50px;
 color:#fff ;
 background-color: #5b08ff;
-width:50%;;
+width:auto;
 }
 
 /* 在message DOM中插入訊息內容*/

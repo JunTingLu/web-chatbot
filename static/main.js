@@ -51,7 +51,6 @@ async function main () {
       })
       
       /* 語音聊天模式 */
-      // stop click (或改用長按start鍵來控制錄音時間長短，並在鬆開事件發出請求)
       buttonPause.addEventListener('click', event => {
         buttonPause.setAttribute('disabled', 'disabled')
         buttonStart.removeAttribute('disabled')
@@ -65,7 +64,7 @@ async function main () {
         const lang=document.querySelector('#langs')
         // send the stream
         data.append('file',blob)
-        // send the info of lang we choosed
+        // send the info of lang we chose
         data.append('lang',lang.value)
 
         // user response
@@ -88,7 +87,8 @@ async function main () {
               if (data.result===''){
                 return false
               }
-            
+              
+            // 延遲顯示
             setTimeout(function() {
                 const newMsg=document.createElement('div')
                 newMsg.classList.add('message', 'new');
