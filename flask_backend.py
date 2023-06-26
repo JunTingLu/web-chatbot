@@ -24,9 +24,13 @@ CORS(app)
 
 # openai api setup(*.ini)
 config=ConfigParser()
-path=config.read("../config.ini",encoding="utf-8")
+path=config.read("./config.ini",encoding="utf-8")
 API_key=config.get('OpenAI','openai_API')  
 openai.api_key = API_key
+
+# api endpoint
+def health_check():
+    return "ok"
 
 #%%
 # chatGPT3.5  API
@@ -81,9 +85,9 @@ def blob_to_wav(blob,language):
     # 將二進位格式轉換成 AudioSegment 物件
     audio_segment=write_wav(riff_data)
     # # 將 AudioSegment 物件轉換成 wav 格式的音訊檔案
-    audio_segment.export("../output/output.wav", format="wav")
+    audio_segment.export("./output/output.wav", format="wav")
     # transcript from whisper api (S2T)
-    with open("../output/output.wav", "rb") as audio_file:
+    with open("./output/output.wav", "rb") as audio_file:
         transcript=Whisper_API(audio_file,language)
     return transcript
 
