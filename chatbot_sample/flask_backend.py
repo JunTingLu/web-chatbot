@@ -24,7 +24,7 @@ CORS(app)
 
 # openai api setup(*.ini)
 config=ConfigParser()
-path=config.read("./config.ini",encoding="utf-8")
+path=config.read("../config.ini",encoding="utf-8")
 API_key=config.get('OpenAI','openai_API')  
 openai.api_key = API_key
 
@@ -47,16 +47,14 @@ def chat_completion(messages):
 # Whisper API
 def Whisper_API(audio_file,language):
     transcript = openai.Audio.transcribe(model="whisper-1",file=audio_file, language=language  )
-    print(71,transcript)
     return transcript['text']
 
-# DALEE  API
+# # DALEE  API
 def img_generator(input_text,API_key):
     text_hint=['生成','產生']
     if any (word in input_text for word in text_hint):
          for word in text_hint:
             if word in input_text:
-                print(86)
                 PROMPT = input_text.split(word)[1]
     else:
         PROMPT = input_text  
@@ -66,11 +64,10 @@ def img_generator(input_text,API_key):
     n=1,
     size="256x256",
     )
-    print(response["data"][0]["url"])
     return response["data"][0]['url']
 
 
-# 創建wav檔案 
+# # 創建wav檔案 
 def blob_to_wav(blob,language):
     byites_io=io.BytesIO(blob)
     byites_content=byites_io.getvalue()
@@ -84,12 +81,10 @@ def blob_to_wav(blob,language):
     # 將二進位格式轉換成 AudioSegment 物件
     audio_segment=write_wav(riff_data)
     # # 將 AudioSegment 物件轉換成 wav 格式的音訊檔案
-    audio_segment.export("./output/output.wav", format="wav")
+    audio_segment.export("../output/output.wav", format="wav")
     # transcript from whisper api (S2T)
-    with open("./output/output.wav", "rb") as audio_file:
-        print(115,language)
+    with open("../output/output.wav", "rb") as audio_file:
         transcript=Whisper_API(audio_file,language)
-        print(116,transcript)
     return transcript
 
 # write stream in wav file
@@ -150,7 +145,7 @@ def text_GPT():
 
 #%%
 if __name__=='__main__':
-    # fetch flast 串接
+    # fetch flask 串接
     host_ip='127.0.0.1'
     host_port='5000'
     app.run(host=host_ip,port=host_port,debug=True) 
