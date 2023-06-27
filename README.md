@@ -18,11 +18,14 @@ Additionally, I aim to integrate the powerful OpenAI API (GPT3 .5), which has be
    Python file for creating a router using Flask as the backend
    
 <h1> System environment </h1>
-- python 3.8
+
+> python 3.8
 
 <h1>Package description</h1>
-1.Javascript API
-  SpeechSynthesisUtterance
+
+> Javascript API
+
+**SpeechSynthesisUtterance**
 
 <h1> Deployment </h1>
 I deploy using Docker and provide any port for integration
