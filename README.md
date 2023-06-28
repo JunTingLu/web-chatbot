@@ -21,9 +21,26 @@ Additionally, I aim to integrate the powerful OpenAI API (GPT3 .5), which has be
 
 > python 3.8
 
-<h1>Package description</h1>
+<h1>Description</h1>
 
-> Javascript API - **SpeechSynthesisUtterance**
+<table>
+  <tr>
+    <td> Javascript API</td>
+    <td>status</td>
+  </tr>
+   <tr>
+    <td>SpeechSynthesisUtterance</td>
+    <td>Generate voice output using the language from the voice list</td>
+  </tr>
+    <tr>
+    <td>Start button</td>
+    <td>Start recording at least for 5 secs </td>
+  </tr>
+  <tr>
+    <td>Pause button</td>
+    <td>Stop recording </td>
+  </tr>
+</table> 
 
 <h1> Deployment </h1>
 I deploy using Docker and provide any port for integration
