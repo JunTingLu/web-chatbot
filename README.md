@@ -23,9 +23,7 @@ Additionally, I aim to integrate the powerful OpenAI API (GPT3 .5), which has be
 
 <h1>Package description</h1>
 
-> Javascript API
-
-**SpeechSynthesisUtterance**
+> Javascript API - **SpeechSynthesisUtterance**
 
 <h1> Deployment </h1>
 I deploy using Docker and provide any port for integration
