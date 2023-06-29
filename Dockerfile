@@ -1,11 +1,11 @@
 # 使用 Python 官方映像檔作為基礎
-FROM python:3.9
+FROM python:3.8.2
 
 # 設定工作目錄
 WORKDIR /app
 
 # Install core dependencies.
-RUN apt-get update && apt-get install -y libpq-dev build-essential
+# RUN apt-get update && apt-get install -y libpq-dev build-essential
 
 # 複製專案檔案到工作目錄
 COPY . .
