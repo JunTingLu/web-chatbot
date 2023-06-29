@@ -13,7 +13,7 @@ COPY . .
 
 # 設定 Flask 環境變數
 # ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
+# ENV FLASK_RUN_HOST=0.0.0.0
 
 # 開放對外連接的埠號
 EXPOSE 5000
