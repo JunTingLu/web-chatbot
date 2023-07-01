@@ -1,28 +1,15 @@
 import openai
-import os 
-import pyaudio
 from configparser import ConfigParser
-import os
-from flask import Flask, request, redirect, url_for, render_template,send_from_directory,jsonify, send_file
-import base64 
-from werkzeug.utils import secure_filename
-import numpy as np
-import cv2
-from PIL import Image
+from flask import Flask, request,jsonify
 import io
-from cv2 import imwrite
-import json
-import wave
 from flask_cors import CORS
-import time
 from pydub import AudioSegment
-import requests
 
 #%%
 app=Flask(__name__)
 CORS(app)
 
-# openai api setup(*.ini)
+# openai api setup(*.ii)
 config=ConfigParser()
 path=config.read("./config.ini",encoding="utf-8")
 API_key=config.get('OpenAI','openai_API')  
