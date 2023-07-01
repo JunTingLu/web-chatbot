@@ -33,6 +33,7 @@ pydocstyle==6.2.3
 pydub==0.25.1
 pyflakes==3.0.1
 pylint==2.17.1
+python-dotenv==1.0.0
 python-lsp-jsonrpc==1.0.0
 python-lsp-server==1.7.1
 pytoolconfig==1.2.5
