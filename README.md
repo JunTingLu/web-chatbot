@@ -17,9 +17,12 @@ Additionally, I aim to integrate the powerful OpenAI API (GPT3 .5), which has be
 -  backend
    Python file for creating a router using Flask as the backend
    
-<h1> System environment </h1>
+<h1> 程式語言和套件 </h1>
 
-> python 3.8
+> - python 3.8
+  - flask
+  - html, css, javascript
+  - Web Audio API
 
 <h1>Description</h1>
 
