@@ -56,7 +56,7 @@ function speakText() {
 }
 
 /* 匯出函式 */
-export {
+export{
   setVoices,
   setTextMessage,
   speakText,

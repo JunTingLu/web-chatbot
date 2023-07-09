@@ -4,6 +4,7 @@ from flask import Flask, request,jsonify
 import io
 from flask_cors import CORS
 from pydub import AudioSegment
+from gevent.pywsgi import WSGIServer
 
 #%%
 app=Flask(__name__)
@@ -16,6 +17,7 @@ API_key=config.get('OpenAI','openai_API')
 openai.api_key = API_key
 
 # api endpoint
+@app.route('/',methods=['GET'])
 def health_check():
     return "ok"
 
@@ -136,7 +138,8 @@ def text_GPT():
 
 #%%
 if __name__=='__main__':
-    # fetch flask 串接
-    host_ip='127.0.0.1'
-    host_port='5000'
-    app.run(host=host_ip,port=host_port,debug=True) 
+    host_ip='0.0.0.0'
+    host_port='80'
+    app.run(host=host_ip,port=host_port,debug=False) 
+    # http_server = WSGIServer(('127.0.0.1', 80), app)
+    # http_server.serve_forever()

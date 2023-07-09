@@ -51,7 +51,7 @@ function insertMessage() {
           },0);
       },0); 
     })
-    .catch(error=>console.error(error))
+    .catch(error=>console.log(error))
 }
 
 

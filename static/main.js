@@ -1,5 +1,5 @@
  /* import module from tts */
-import * as tts from './tts.js';
+import * as tts from '../static/tts.js';
 async function main () {
     try {
       const buttonStart = document.querySelector('#start')
