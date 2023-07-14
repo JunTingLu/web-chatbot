@@ -22,7 +22,7 @@ Additionally, I aim to integrate the powerful OpenAI API (GPT3 .5), which has be
 > - flask
 > - html, css, scss, javascript
 > - Web Audio API
-> - SpeechSynthesisUtterance 
+> - SpeechSynthesisUtterance API
 
 <h1>Description</h1>
 
