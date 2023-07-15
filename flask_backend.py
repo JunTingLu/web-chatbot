@@ -139,7 +139,13 @@ def text_GPT():
 #%%
 if __name__=='__main__':
     host_ip='0.0.0.0'
-    host_port='80'
+    host_port='5000'
     app.run(host=host_ip,port=host_port,debug=False) 
     # http_server = WSGIServer(('127.0.0.1', 80), app)
     # http_server.serve_forever()
+
+
+# test flask
+# @app.route("/")
+# def hello_world():
+#     return "<p>Hello, World!</p>"
