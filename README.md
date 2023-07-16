@@ -38,11 +38,7 @@ Additionally, I aim to integrate the powerful OpenAI API (GPT3 .5), which has be
   </tr>
 </table> 
 
-<h1> Docker 部署 </h1>
-
-I deploy using Docker and provide any port for integration
-
 <h1> Get start </h1>
 
- **In terminal run**<br>
-> docker run -p 5000:5000 docker
+ **Terminal run to connect the backend**<br>
+> docker run -p 5000:5000 webchat
