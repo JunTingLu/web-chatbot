@@ -7,24 +7,25 @@ RUN apt-get update && apt-get install -y nginx
 # 設定 Nginx 配置文件
 # COPY nginx.conf /etc/nginx/nginx.conf
 
-# 設定工作目錄
+# 建立工作目錄
 WORKDIR /app
 
 # 複製 HTML 文件到 Nginx 的默認網站目錄
-COPY . /var/www/html
+COPY  . /var/www/html
 
 # 複製專案檔案到工作目錄
 COPY flask_backend.py .
 COPY entrypoint.sh .
 COPY config.ini .
+COPY output . 
 
 # 複製並安裝 Python 依賴套件清單
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-# RUN pip install -r requirements.txt
 
 # 開放對外連接的埠號
 EXPOSE 80
+EXPOSE 5000
 
 # 利用bash執行 .sh 腳本
 CMD ["bash", "entrypoint.sh"]
