@@ -49,5 +49,4 @@ docker build -t web-chatbot .
 ```
 docker run --rm --name web-chatbot -p 80:80 -p 5000:5000 web-chatbot 
 ```
-![Aaron's GitHub stats](https://github-readme-stats.vercel.app/api?username=JunTingLu&show_icons=true&theme=radical)
 
