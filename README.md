@@ -49,4 +49,4 @@ docker build -t web-chatbot .
 ```
 docker run --rm --name web-chatbot -p 80:80 -p 5000:5000 web-chatbot 
 ```
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=JunTingLu&repo=github-readme-stats)](https://github.com/JunTingLu/github-readme-stats)
+
